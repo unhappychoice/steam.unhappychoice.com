@@ -137,128 +137,119 @@ const buildHtml = (games) => {
 };
 
 const buildRouletteHtml = (games) => {
-  const game = games
-    .filter(({ achievements }) => achievements && achievements.filter(({ achieved }) => achieved !== 1).length > 0)[0];
-
-  const gamesJson = games
+  // Filter and map game data for the roulette
+  const gamesData = games
     .filter(({ achievements }) => achievements && achievements.filter(({ achieved }) => achieved !== 1).length > 0)
     .map(({ game: { name, appid }, nextAchievements }) => ({
       name,
       appid,
       imageUrl: `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appid}/library_600x900.jpg`,
-      nextAchievements
+      nextAchievements: nextAchievements || []
     }));
 
-  const achievementHtml = (achievement, i) => {
-    return `
-<li style="display: flex; height: 48px; margin: 0 0 4px; padding: 12px; background: #232323;">
-  <img id="achievement-image-${i}" src="${achievement.imageUrl}" style="width: 48px; height: 48px; margin-right: 12px;" />
-  <div style="display: flex; flex-direction: column; flex-grow: 1; margin-right: 12px;">
-    <p id="achievement-title-${i}" style="margin: 0; font-size: 13px">${achievement?.name}</p>
-    <p id="achievement-description-${i}" style="margin: 1px 0 0; font-size: 10px; overflow: hidden;">${achievement?.description}</p>
-  </div>
-  <div style="display: flex; justify-content: center;">
-    <p id="achievement-percentage-${i}" style="font-size: 12px">${achievement?.percent}%</p>
-  </div>
-</li>
-    `
-  };
+  // Generate HTML blocks for each game
+  const gameBlocksHtml = gamesData.map((game, index) => `
+    <div id="game-block-${index}" class="game-block" style="display: ${index === 0 ? 'flex' : 'none'}; flex-direction: column; align-items: center;">
+      <a href="steam://rungameid/${game.appid}">
+        <img src="${game.imageUrl}" style="display: block; width: 300px; height:450px; background: #232323;" onerror="this.style.visibility='hidden';"/>
+      </a>
+      <p style="margin: 24px 0 0; font-size: 22px">${game.name}</p>
+      <ul style="margin: 32px 0 0; padding: 0; width: 450px;">
+        ${game.nextAchievements.map(achievement => `
+          <li style="display: flex; height: 48px; margin: 0 0 4px; padding: 12px; background: #232323;">
+            <img src="${achievement.imageUrl}" style="width: 48px; height: 48px; margin-right: 12px; background: #333;" onerror="this.style.visibility='hidden';" />
+            <div style="display: flex; flex-direction: column; flex-grow: 1; margin-right: 12px;">
+              <p style="margin: 0; font-size: 13px">${achievement?.name ?? ''}</p>
+              <p style="margin: 1px 0 0; font-size: 10px; overflow: hidden;">${achievement?.description ?? ''}</p>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center;">
+              <p style="font-size: 12px">${achievement?.percent?.toFixed(2) ?? '--'}%</p>
+            </div>
+          </li>
+        `).join('')}
+      </ul>
+    </div>
+  `).join('');
+
+  // Generate preload links for all images
+  const preloadLinks = gamesData.flatMap(game => [
+    game.imageUrl,
+    ...game.nextAchievements.map(ach => ach.imageUrl)
+  ]).filter(url => url).map(url => `<link href="${url}" as="image" rel="preload" />`).join('\n');
 
   return `
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    ${games
-      .flatMap(({ game: { appid }, nextAchievements }) => [
-        ...(nextAchievements?.map(({ imageUrl }) => `<link href="${imageUrl}" as="image" rel="preload" />`) ?? []),
-        `<link href="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appid}/library_600x900.jpg" as="image" rel="preload" />`
-      ])
-      .join('\n')
-    }
-     
+    ${preloadLinks}
     <style>
         body {
           margin: 0;
           background: #121212;
           color: #a2a2a2;
         }
-        
-        a:link {
-          color: #aaaabb;
-          text-decoration: none;
-        }
-        
-        a:visited {
-          color: #777799;
-          text-decoration: none;
-        }
-        
-        a:hover {
-          text-decoration: underline;
-        }
-        
-        a:active {
-          color: #afafbf;
-          text-decoration: none;
-        }
-    </style>       
+        a:link { color: #aaaabb; text-decoration: none; }
+        a:visited { color: #777799; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        a:active { color: #afafbf; text-decoration: none; }
+    </style>
   </head>
   <body>
     <div style="display: flex; padding: 64px 48px; flex-direction: column; align-items: center;">
-      <a id="game-link" href="steam://rungameid/${game.game.appid}">
-        <img id="game-image" style="display: block; width: 300px; height:450px; background: #232323;" src="${`https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.game.appid}/library_600x900.jpg`}"/>
-      </a>      
-      <p id="game-title" style="margin: 24px 0 0; font-size: 22px">${game.game.name}</p>
-      <ul style="margin: 32px 0 0; padding: 0; width: 450px;">
-        ${game.nextAchievements.map(achievementHtml).join('\n')}
-      </ul>            
-      <button id="start-button" style="margin-top: 32px; padding: 8px 24px; appearance: none; border: 0; border-radius: 0; background: #232323; color: #a2a2a2; font-size: 24px;">Have fun!</button>                
+      <div id="roulette-container" style="width: 450px; min-height: 650px; display: flex; justify-content: center; align-items: flex-start;">
+        ${gameBlocksHtml}
+      </div>
+      <button id="start-button" style="margin-top: 32px; padding: 8px 24px; appearance: none; border: 0; border-radius: 0; background: #232323; color: #a2a2a2; font-size: 24px;">Have fun!</button>
     </div>
   </body>
   <script>
-    const games = ${JSON.stringify(gamesJson)};
-
-    const $gameLink = document.getElementById('game-link');
-    const $gameTitle = document.getElementById('game-title');
-    const $gameImage = document.getElementById('game-image');
+    const gamesCount = ${gamesData.length};
+    const $gameBlocks = document.querySelectorAll('.game-block');
     const $startButton = document.getElementById('start-button');
-    
+    let currentGameIndex = 0;
+
+    // Use the original interval calculation that the user preferred
     const shuffle = (callback, weight, threshold) => {
       const interval = weight < 30
         ? 80
         : 80 + 1.4 ** (weight - 30);
-      
+
       setTimeout(() => {
         callback();
-        
         if (++weight < threshold) {
           shuffle(callback, weight, threshold);
         } else {
+          // Ensure the final game is truly random and update the display
+          const finalIndex = Math.floor(Math.random() * gamesCount);
+          if (currentGameIndex !== finalIndex) {
+            $gameBlocks[currentGameIndex].style.display = 'none';
+            $gameBlocks[finalIndex].style.display = 'flex';
+            currentGameIndex = finalIndex;
+          }
+          
           $startButton.disabled = false;
         }
       }, interval);
     }
-    
+
     $startButton.onclick = () => {
+      if (gamesCount === 0) return;
       $startButton.disabled = true;
-          
+
       shuffle(() => {
-        requestAnimationFrame(() => {
-          const index = Math.floor(Math.random() * games.length);
-          $gameLink.href = 'steam://rungameid/' + games[index].appid;          
-          $gameTitle.textContent = games[index].name;
-          $gameImage.src = games[index].imageUrl;
-          
-          games[index].nextAchievements.forEach((achievement, i) => {
-            document.getElementById('achievement-image-' + i).src = achievement?.imageUrl;
-            document.getElementById('achievement-title-' + i).textContent = achievement?.name;
-            document.getElementById('achievement-description-' + i).textContent = achievement?.description;
-            document.getElementById('achievement-percentage-' + i).textContent =  achievement?.percent + '%'; 
-          })
-        });
+        // To avoid the roulette looking like it's stuck, ensure the next item is always different.
+        if (gamesCount <= 1) return;
+
+        let nextIndex;
+        do {
+          nextIndex = Math.floor(Math.random() * gamesCount);
+        } while (nextIndex === currentGameIndex);
+
+        $gameBlocks[currentGameIndex].style.display = 'none';
+        $gameBlocks[nextIndex].style.display = 'flex';
+        currentGameIndex = nextIndex;
       }, 1, 50);
-     
-    }  
+    }
   </script>
 </html>
   `;
