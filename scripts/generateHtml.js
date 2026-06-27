@@ -1,5 +1,18 @@
 const fs = require('fs');
 
+const fetchJson = (url) =>
+  fetch(url).then(async (response) => {
+    const text = await response.text();
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status} for ${url}: ${text.slice(0, 200)}`);
+    }
+    try {
+      return JSON.parse(text);
+    } catch (e) {
+      throw new Error(`Non-JSON response from ${url}: ${text.slice(0, 200)}`);
+    }
+  });
+
 const fetchGames = () => {
   const url = `https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/`
 
@@ -13,8 +26,7 @@ const fetchGames = () => {
 
   const queryString = `?${Object.entries(queries).map(([key, value]) => `${key}=${value}`).join('&')}`;
 
-  return fetch(`${url}${queryString}`)
-    .then(response => response.json())
+  return fetchJson(`${url}${queryString}`)
     .then(json => json.response.games)
     .then(games => games.sort((a, b) => a.name > b.name ? 1 : -1))
 };
@@ -34,16 +46,15 @@ const fetchAchievements = (game) => {
 
   const queryString = `?${Object.entries(queries).map(([key, value]) => `${key}=${value}`).join('&')}`;
 
-  return fetch(`${url}${queryString}`)
-    .then(response => response.json())
+  return fetchJson(`${url}${queryString}`)
     .then(json => json.playerstats.achievements)
     .then(achievements => Promise.all([
-        fetch(url2)
-          .then(response => response.json())
-          .then(json => json.achievementpercentages?.achievements),
-        fetch(`${url3}${queryString}`)
-          .then(response => response.json())
+        fetchJson(url2)
+          .then(json => json.achievementpercentages?.achievements)
+          .catch(() => undefined),
+        fetchJson(`${url3}${queryString}`)
           .then(json => json.game.availableGameStats?.achievements)
+          .catch(() => undefined)
       ])
       .then(([percentages, images]) => achievements?.map(achievement => ({
         ...achievement,
@@ -58,7 +69,8 @@ const fetchAchievements = (game) => {
         ?.filter(({ achieved }) => achieved !== 1)
         .sort((a, b) => a.percent > b.percent ? -1 : 1)
         ?.slice(0, 3)
-    }));
+    }))
+    .catch(() => ({ game, achievements: undefined, nextAchievements: [] }));
 }
 
 const buildHtml = (games) => {
