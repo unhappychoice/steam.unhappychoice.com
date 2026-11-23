@@ -22,10 +22,8 @@ const fetchGames = () => {
 const fetchAchievements = (game) => {
   const url = `https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/`;
   const url2 =`https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=${game.appid}`;
-  const url3 = 'http://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v0002/';
 
-
-    const queries = {
+  const queries = {
     key: process.env.STEAM_API_KEY,
     steamid: '76561198120099395',
     appid: game.appid,
@@ -41,58 +39,110 @@ const fetchAchievements = (game) => {
         fetch(url2)
           .then(response => response.json())
           .then(json => json.achievementpercentages?.achievements),
-        fetch(`${url3}${queryString}`)
-          .then(response => response.json())
-          .then(json => json.game.availableGameStats?.achievements)
+        fetchAchievementSets(game.appid)
       ])
-      .then(([percentages, images]) => achievements?.map(achievement => ({
+      .then(([percentages, sets]) => achievements?.map(achievement => ({
         ...achievement,
-        percent: +percentages?.find(({ name }) => name === achievement.apiname)?.percent,
-        imageUrl: images?.find(({ name }) => name === achievement.apiname)?.icongray
+        ...buildSetInfo(game.appid, achievement.apiname, sets),
+        percent: +percentages?.find(({ name }) => name === achievement.apiname)?.percent
       })))
     )
-    .then(achievements => ({
-      game,
-      achievements,
-      nextAchievements: achievements
-        ?.filter(({ achieved }) => achieved !== 1)
-        .sort((a, b) => a.percent > b.percent ? -1 : 1)
-        ?.slice(0, 3)
-    }));
+    .then(achievements => buildGameStats(game, achievements));
 }
+
+const fetchAchievementSets = (appid) =>
+  fetch(`https://api.steampowered.com/IPlayerService/GetGameAchievements/v1/?appid=${appid}&language=japanese`)
+    .then(response => response.json())
+    .then(json => json.response ?? {})
+    .catch(() => ({}));
+
+const buildSetInfo = (appid, apiname, { achievements, groups }) => {
+  const detail = achievements?.find(({ internal_name }) => internal_name === apiname);
+  const group = groups?.find(({ groupid }) => groupid === detail?.groupid);
+
+  return {
+    imageUrl: detail && `https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/${appid}/${detail.icon_gray}`,
+    groupid: detail?.groupid ?? 0,
+    setName: group?.localized_name,
+    setOrder: group?.order ?? 0,
+    isDlc: Boolean(group?.dlcappid),
+    archived: Boolean(detail?.archived || group?.archived)
+  };
+};
+
+const buildGameStats = (game, achievements) => {
+  const visibleAchievements = achievements?.filter(({ achieved, archived }) => achieved === 1 || !archived);
+  const baseAchievements = visibleAchievements?.filter(({ isDlc }) => !isDlc);
+  const achievementSets = buildAchievementSets(visibleAchievements ?? []);
+  const playingDlcAchievements = achievementSets
+    .filter(({ isDlc, achievedCount }) => isDlc && achievedCount > 0)
+    .flatMap(({ achievements }) => achievements);
+
+  return {
+    game,
+    achievements: baseAchievements,
+    achievementSets,
+    nextAchievements: pickNextAchievements([...(baseAchievements ?? []), ...playingDlcAchievements])
+  };
+};
+
+const buildAchievementSets = (achievements) =>
+  [...new Set(achievements.filter(({ setName }) => setName).map(({ groupid }) => groupid))]
+    .map(groupid => achievements.filter(achievement => achievement.groupid === groupid))
+    .sort((a, b) => a[0].isDlc - b[0].isDlc || a[0].setOrder - b[0].setOrder)
+    .map(setAchievements => ({
+      name: setAchievements[0].setName,
+      isDlc: setAchievements[0].isDlc,
+      achievements: setAchievements,
+      achievedCount: setAchievements.filter(({ achieved }) => achieved === 1).length
+    }));
+
+const pickNextAchievements = (achievements) =>
+  achievements
+    .filter(({ achieved }) => achieved !== 1)
+    .sort((a, b) => a.percent > b.percent ? -1 : 1)
+    .slice(0, 3);
 
 const buildHtml = (games) => {
   const gamesHtml = games
-    .map(({ game: { appid, name, playtime_forever, playtime_2weeks }, achievements }) => `
-      <li style="padding: 8px 32px; display: flex; align-items: center; height: 40px;" onMouseOut="this.style.background='transparent';" onMouseOver="this.style.background='rgba(255, 255, 255, .03)'">
-        <img style="display: inline-block; height: 40px; margin-right: 16px;" src="${`https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appid}/header.jpg`}" />
-        <span style="display: inline-block; flex-grow: 1; margin-right: 16px;">${name}</span>
-        <span style="display: inline-block; width: 60px; margin-right: 16px;">${Math.round(playtime_forever / 60 * 10) / 10}h</span>
-        <span style="display: inline-block; width: 60px; margin-right: 16px;">${Math.round((playtime_2weeks ?? 0) / 60 * 10) / 10}h</span>
-        <span style="display: inline-block; width: 60px; margin-right: 16px;">
-          ${achievements ? `${Math.round(achievements.filter(({ achieved}) => achieved).length / achievements.length * 100)} %` : '--'}
-        </span>
-        <span style="display: inline-block; margin-right: 16px;">
-          <a href="https://www.youtube.com/results?search_query=${encodeURI(name)}" target="_blank" rel="noopener noreferrer">
-            YouTube
-          </a>
-        </span>
-        <span style="display: inline-block; margin-right: 16px;">
-          <a href="https://www.youtube.com/results?search_query=${encodeURI(name + ' 実況')}" target="_blank" rel="noopener noreferrer">
-            実況
-          </a>
-        </span>
-        <span style="display: inline-block; margin-right: 16px;">
-          <a href="https://www.youtube.com/results?search_query=${encodeURI(name + ' VTuber')}" target="_blank" rel="noopener noreferrer">
-            VTuber
-          </a>
-        </span>
-        <span style="display: inline-block;">
-          <a href="https://www.youtube.com/results?search_query=${encodeURI(name)}&sp=EgIQAw%253D%253D" target="_blank" rel="noopener noreferrer">
-            再生リスト
-          </a>
-        </span>
-      </li>  
+    .map(({ game: { appid, name, playtime_forever, playtime_2weeks }, achievements, achievementSets }) => `
+      <li style="padding: 8px 32px; list-style: none;" onMouseOut="this.style.background='transparent';" onMouseOver="this.style.background='rgba(255, 255, 255, .03)'">
+        <div style="display: flex; align-items: center; height: 40px;">
+          <img style="display: inline-block; height: 40px; margin-right: 16px;" src="${`https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appid}/header.jpg`}" />
+          <span style="display: inline-block; flex-grow: 1; margin-right: 16px;">${name}</span>
+          <span style="display: inline-block; width: 60px; margin-right: 16px;">${Math.round(playtime_forever / 60 * 10) / 10}h</span>
+          <span style="display: inline-block; width: 60px; margin-right: 16px;">${Math.round((playtime_2weeks ?? 0) / 60 * 10) / 10}h</span>
+          <span style="display: inline-block; width: 72px; margin-right: 16px; text-align: right;">
+            ${achievements?.length ? `${achievements.filter(({ achieved }) => achieved).length} / ${achievements.length}` : ''}
+          </span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">
+            ${buildCompletionHtml(achievements?.filter(({ achieved }) => achieved).length, achievements?.length)}
+          </span>
+          <span style="display: inline-flex; width: 280px;">
+            <span style="display: inline-block; margin-right: 16px;">
+              <a href="https://www.youtube.com/results?search_query=${encodeURI(name)}" target="_blank" rel="noopener noreferrer">
+                YouTube
+              </a>
+            </span>
+            <span style="display: inline-block; margin-right: 16px;">
+              <a href="https://www.youtube.com/results?search_query=${encodeURI(name + ' 実況')}" target="_blank" rel="noopener noreferrer">
+                実況
+              </a>
+            </span>
+            <span style="display: inline-block; margin-right: 16px;">
+              <a href="https://www.youtube.com/results?search_query=${encodeURI(name + ' VTuber')}" target="_blank" rel="noopener noreferrer">
+                VTuber
+              </a>
+            </span>
+            <span style="display: inline-block;">
+              <a href="https://www.youtube.com/results?search_query=${encodeURI(name)}&sp=EgIQAw%253D%253D" target="_blank" rel="noopener noreferrer">
+                再生リスト
+              </a>
+            </span>
+          </span>
+        </div>
+        ${buildAchievementSetsHtml(achievementSets)}
+      </li>
     `)
     .join('');
 
@@ -136,10 +186,44 @@ const buildHtml = (games) => {
   `;
 };
 
+const buildAchievementSetsHtml = (achievementSets) => achievementSets.map(buildAchievementSetHtml).join('');
+
+const buildAchievementSetHtml = ({ name, isDlc, achievements, achievedCount }) => `
+        <div style="display: flex; align-items: center; height: 24px; margin-left: 102px; font-size: 13px; color: #7a7a7a;">
+          <span style="display: inline-flex; align-items: center; flex-grow: 1; margin-right: 16px;">
+            <span style="display: inline-flex; width: 14px; margin-right: 6px;">${isDlc ? dlcIcon : ''}</span>
+            ${name}
+          </span>
+          <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
+          <span style="display: inline-block; width: 72px; margin-right: 16px; text-align: right;">${achievedCount} / ${achievements.length}</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">${buildCompletionHtml(achievedCount, achievements.length)}</span>
+          <span style="display: inline-block; width: 280px;"></span>
+        </div>
+`;
+
+const dlcIcon = `
+  <svg viewBox="0 0 24 24" width="14" height="14" fill="#a970ff" aria-label="DLC">
+    <path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/>
+  </svg>
+`;
+
+const buildCompletionHtml = (achievedCount, total) => {
+  if (!total) return '--';
+  if (achievedCount < total) return `${Math.round(achievedCount / total * 100)} %`;
+
+  return `<span style="color: #d4af37;">100 %</span>${trophyIcon}`;
+};
+
+const trophyIcon = `
+  <svg viewBox="0 0 24 24" width="14" height="14" fill="#d4af37" style="flex-shrink: 0; margin-left: 4px;" aria-label="Completed">
+    <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/>
+  </svg>
+`;
+
 const buildRouletteHtml = (games) => {
   // Filter and map game data for the roulette
   const gamesData = games
-    .filter(({ achievements }) => achievements && achievements.filter(({ achieved }) => achieved !== 1).length > 0)
+    .filter(({ nextAchievements }) => nextAchievements.length > 0)
     .map(({ game: { name, appid }, nextAchievements }) => ({
       name,
       appid,
