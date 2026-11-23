@@ -1,6 +1,7 @@
 const { icon, colors } = require('./icons');
 
 const buildHeaderHtml = (activePage) => `
+    <style>html { scrollbar-gutter: stable; }</style>
     <header style="border-bottom: 1px solid #232323; background: #161616;">
       <div style="display: flex; align-items: center; margin: 0 auto; padding: 0 32px; max-width: 1400px; height: 56px;">
         <a href="index.html" style="display: inline-flex; align-items: center; gap: 10px; color: #e0e0e0; font-size: 17px; text-decoration: none;">
