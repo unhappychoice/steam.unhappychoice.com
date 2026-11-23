@@ -3,6 +3,7 @@ const path = require('path');
 const { colors } = require('../icons');
 const { buildNotStartedCardHtml } = require('./notStartedCard');
 const { buildInProgressCardHtml } = require('./inProgressCard');
+const { buildHeaderHtml } = require('../header');
 
 const buildBacklogHtml = (games, timesByAppid) => {
   const withExtras = games
@@ -33,6 +34,7 @@ const buildBacklogHtml = (games, timesByAppid) => {
     </style>
   </head>
   <body>
+    ${buildHeaderHtml('backlog')}
     <div style="margin: 0 auto; padding: 32px; max-width: 1400px;">
       <div style="display: flex; align-items: center; margin-bottom: 20px;">
         <h1 style="margin: 0; font-size: 22px; font-weight: normal; color: #e0e0e0;">次に遊ぶゲーム</h1>
