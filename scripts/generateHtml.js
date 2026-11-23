@@ -1,5 +1,6 @@
 const fs = require('fs');
 const { buildDataAttributes, buildControlsHtml, gameListScript } = require('./gameListControls');
+const { buildSummaryHtml } = require('./summary');
 
 const fetchGames = () => {
   const url = `https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/`
@@ -114,9 +115,18 @@ const buildGameStats = (game, achievements) => {
     game,
     achievements: baseAchievements,
     achievementSets,
+    dlcProgress: buildDlcProgress(achievementSets),
     nextAchievements: pickNextAchievements([...(baseAchievements ?? []), ...playingDlcAchievements])
   };
 };
+
+const buildDlcProgress = (achievementSets) =>
+  achievementSets
+    .filter(({ isDlc }) => isDlc)
+    .reduce(({ achievedCount, total }, set) => ({
+      achievedCount: achievedCount + set.achievedCount,
+      total: total + set.achievements.length
+    }), { achievedCount: 0, total: 0 });
 
 const buildAchievementSets = (achievements) =>
   [...new Set(achievements.filter(({ setName }) => setName).map(({ groupid }) => groupid))]
@@ -138,7 +148,7 @@ const pickNextAchievements = (achievements) =>
 const buildHtml = (games) => {
   const gamesHtml = games
     .map((gameStats, index) => [gameStats, buildDataAttributes(gameStats, index)])
-    .map(([{ game: { appid, name, playtime_forever, playtime_2weeks, headerUrl }, achievements, achievementSets }, dataAttributes]) => `
+    .map(([{ game: { appid, name, playtime_forever, playtime_2weeks, headerUrl }, achievements, achievementSets, dlcProgress }, dataAttributes]) => `
       <li ${dataAttributes} style="padding: 8px 32px; list-style: none;" onMouseOut="this.style.background='transparent';" onMouseOver="this.style.background='rgba(255, 255, 255, .03)'">
         <div style="display: flex; align-items: center; height: 40px;">
           <img style="display: inline-block; flex-shrink: 0; width: 86px; height: 40px; margin-right: 16px; object-fit: cover; background: #232323;" src="${headerUrl}" onerror="this.style.visibility='hidden';" />
@@ -150,6 +160,9 @@ const buildHtml = (games) => {
           </span>
           <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">
             ${buildCompletionHtml(achievements?.filter(({ achieved }) => achieved).length, achievements?.length)}
+          </span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; font-size: 14px; white-space: nowrap;">
+            ${buildDlcProgressHtml(dlcProgress)}
           </span>
           <span style="display: inline-flex; width: 280px;">
             <span style="display: inline-block; margin-right: 16px;">
@@ -212,6 +225,7 @@ const buildHtml = (games) => {
   </head>
   <body>
     <div style="margin: 0 auto; max-width: 1200px;">
+      ${buildSummaryHtml(games)}
       ${buildControlsHtml()}
       <ul id="games" style="margin: 0; padding: 0 0 32px;">
         ${gamesHtml}
@@ -229,13 +243,14 @@ const buildAchievementSetsHtml = (achievementSets) => achievementSets.map(buildA
 
 const buildAchievementSetHtml = ({ name, isDlc, achievements, achievedCount }) => `
         <div style="display: flex; align-items: center; height: 24px; margin-left: 102px; font-size: 13px; color: #7a7a7a;">
-          <span style="display: inline-flex; align-items: center; flex-grow: 1; margin-right: 16px;">
-            <span style="display: inline-flex; width: 14px; margin-right: 6px;">${isDlc ? dlcIcon : ''}</span>
-            ${name}
+          <span style="display: inline-flex; align-items: center; flex-grow: 1; min-width: 0; margin-right: 16px;">
+            <span style="display: inline-flex; flex-shrink: 0; width: 14px; margin-right: 6px;">${isDlc ? dlcIcon : ''}</span>
+            <span style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" title="${name}">${name}</span>
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 72px; margin-right: 16px; text-align: right;">${achievedCount} / ${achievements.length}</span>
           <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">${buildCompletionHtml(achievedCount, achievements.length)}</span>
+          <span style="display: inline-block; width: 80px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 280px;"></span>
         </div>
 `;
@@ -245,6 +260,10 @@ const dlcIcon = `
     <path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/>
   </svg>
 `;
+
+const buildDlcProgressHtml = ({ achievedCount, total }) => !total ? '' : `
+            <span style="display: inline-flex; margin-right: 4px;">${dlcIcon}</span>
+            ${buildCompletionHtml(achievedCount, total)}`;
 
 const buildCompletionHtml = (achievedCount, total) => {
   if (!total) return '--';

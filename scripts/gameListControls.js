@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const buildDataAttributes = ({ game: { name, playtime_forever, playtime_2weeks }, achievements, achievementSets }, index) => {
+const buildDataAttributes = ({ game: { name, playtime_forever, playtime_2weeks }, achievements, achievementSets, dlcProgress }, index) => {
   const achievedCount = achievements?.filter(({ achieved }) => achieved === 1).length ?? 0;
   const total = achievements?.length ?? 0;
 
@@ -12,6 +12,7 @@ const buildDataAttributes = ({ game: { name, playtime_forever, playtime_2weeks }
     ['playtime2w', playtime_2weeks ?? 0],
     ['percent', total ? achievedCount / total : ''],
     ['remaining', total ? total - achievedCount : ''],
+    ['dlc-percent', dlcProgress.total ? dlcProgress.achievedCount / dlcProgress.total : ''],
     ['status', completionStatus(achievedCount, total)],
     ['dlc-incomplete', achievementSets.some(({ isDlc, achievedCount, achievements }) => isDlc && achievedCount < achievements.length)]
   ].map(([key, value]) => `data-${key}="${value}"`).join(' ');
@@ -42,6 +43,7 @@ const buildControlsHtml = () => `
         ${sortButtonHtml('playtime2w', '2週間', -1, 'width: 60px; text-align: left;')}
         ${sortButtonHtml('remaining', '残り実績', 1, 'width: 72px; text-align: right;')}
         ${sortButtonHtml('percent', '達成率', -1, 'width: 80px; text-align: left;')}
+        ${sortButtonHtml('dlcPercent', 'DLC', -1, 'width: 80px; text-align: left;')}
         <span style="display: inline-block; width: 280px;"></span>
       </div>
     </div>
