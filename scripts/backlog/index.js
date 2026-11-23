@@ -13,7 +13,8 @@ const buildBacklogHtml = (games, timesByAppid) => {
     .sort((a, b) => (b.rarestPercent ?? -1) - (a.rarestPercent ?? -1));
   const inProgress = withExtras
     .filter(({ achievements }) => achievedCount(achievements) > 0 && achievedCount(achievements) < achievements.length)
-    .sort((a, b) => remainingCount(a.achievements) - remainingCount(b.achievements));
+    .map(gameStats => ({ ...gameStats, rarestRemainingPercent: rarestPercent(gameStats.achievements.filter(({ achieved }) => achieved !== 1)) }))
+    .sort((a, b) => (b.rarestRemainingPercent ?? -1) - (a.rarestRemainingPercent ?? -1));
 
   return `
 <html>
@@ -42,7 +43,7 @@ const buildBacklogHtml = (games, timesByAppid) => {
         <button type="button" class="tab-button" data-tab-target="in-progress">着手済み (${inProgress.length})</button>
       </div>
       ${buildSectionHtml('not-started', '実績を 1 つも解除していないゲームを、完走しやすい順に並べています。', notStarted.map(buildNotStartedCardHtml), true)}
-      ${buildSectionHtml('in-progress', '実績を解除し始めたゲームを、残りの実績が少ない順に並べています。', inProgress.map(buildInProgressCardHtml), false)}
+      ${buildSectionHtml('in-progress', '実績を解除し始めたゲームを、残りの実績が完走しやすい順に並べています。', inProgress.map(buildInProgressCardHtml), false)}
     </div>
     ${lightboxHtml}
     <script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js"></script>
@@ -68,7 +69,6 @@ const lightboxHtml = `
 `;
 
 const achievedCount = (achievements) => achievements.filter(({ achieved }) => achieved === 1).length;
-const remainingCount = (achievements) => achievements.length - achievedCount(achievements);
 
 const rarestPercent = (achievements) => {
   const percents = achievements.map(({ percent }) => percent).filter(Number.isFinite);
