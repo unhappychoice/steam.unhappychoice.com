@@ -1,5 +1,5 @@
 const { colors } = require('../icons');
-const { buildCardHtml, buildTimeToBeatHtml } = require('./cardParts');
+const { buildCardHtml, buildTimeToBeatHtml, buildDifficultyBadgeHtml, formatPercent } = require('./cardParts');
 
 const buildInProgressCardHtml = ({ game, achievements, timeToBeat }) => {
   const remaining = achievements
@@ -8,7 +8,7 @@ const buildInProgressCardHtml = ({ game, achievements, timeToBeat }) => {
   const achievedCount = achievements.length - remaining.length;
 
   return buildCardHtml(game, `
-          ${buildProgressHtml(achievedCount, achievements.length)}
+          ${buildProgressHtml(achievedCount, achievements.length, rarestPercent(remaining))}
           ${buildTimeToBeatHtml(timeToBeat, `<span>プレイ済み ${Math.round(game.playtime_forever / 60)} 時間</span>`)}
           <div style="margin-top: 14px;">
             ${remaining.slice(0, 5).map(achievement => buildRemainingAchievementHtml(game.name, achievement)).join('')}
@@ -16,14 +16,22 @@ const buildInProgressCardHtml = ({ game, achievements, timeToBeat }) => {
           </div>`);
 };
 
-const buildProgressHtml = (achievedCount, total) => `
+const buildProgressHtml = (achievedCount, total, rarestRemaining) => `
           <div style="display: flex; align-items: center; gap: 14px; margin-top: 12px; font-size: 14px;">
+            ${buildDifficultyBadgeHtml(rarestRemaining)}
             <div style="flex-grow: 1; max-width: 360px; height: 6px; border-radius: 3px; background: #2a2a2a;">
               <div style="width: ${Math.round(achievedCount / total * 100)}%; height: 100%; border-radius: 3px; background: ${colors.gold};"></div>
             </div>
             <span style="color: #e0e0e0;">${achievedCount} / ${total}</span>
             <span>残り ${total - achievedCount} 個</span>
+            <span title="残りの実績のうち、いちばん解除率が低いもの">残りの最難関 ${formatPercent(rarestRemaining)}</span>
           </div>`;
+
+const rarestPercent = (achievements) => {
+  const percents = achievements.map(({ percent }) => percent).filter(Number.isFinite);
+
+  return percents.length ? Math.min(...percents) : undefined;
+};
 
 const buildRemainingAchievementHtml = (gameName, { name, englishName, description, percent, imageUrl }) => `
             <div style="display: flex; align-items: center; gap: 12px; padding: 6px 0; border-top: 1px solid #232323;">
