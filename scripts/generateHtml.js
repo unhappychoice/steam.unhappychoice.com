@@ -5,6 +5,7 @@ const { attachStoreData } = require('./store');
 const { buildBacklogHtml } = require('./backlog');
 const { fetchTimeToBeat } = require('./timeToBeat');
 const { buildHeaderHtml } = require('./header');
+const { buildRouletteHtml } = require('./roulette');
 const { buildDataAttributes, buildControlsHtml, gameListScript } = require('./gameListControls');
 const { buildSummaryHtml } = require('./summary');
 const { icon, colors } = require('./icons');
@@ -88,16 +89,12 @@ const buildGameStats = (game, achievements) => {
   const visibleAchievements = achievements?.filter(({ achieved, archived }) => achieved === 1 || !archived);
   const baseAchievements = visibleAchievements?.filter(({ isDlc }) => !isDlc);
   const achievementSets = buildAchievementSets(visibleAchievements ?? []);
-  const playingDlcAchievements = achievementSets
-    .filter(({ isDlc, achievedCount }) => isDlc && achievedCount > 0)
-    .flatMap(({ achievements }) => achievements);
 
   return {
     game,
     achievements: baseAchievements,
     achievementSets,
-    dlcProgress: buildDlcProgress(achievementSets),
-    nextAchievements: pickNextAchievements([...(baseAchievements ?? []), ...playingDlcAchievements])
+    dlcProgress: buildDlcProgress(achievementSets)
   };
 };
 
@@ -119,12 +116,6 @@ const buildAchievementSets = (achievements) =>
       achievements: setAchievements,
       achievedCount: setAchievements.filter(({ achieved }) => achieved === 1).length
     }));
-
-const pickNextAchievements = (achievements) =>
-  achievements
-    .filter(({ achieved }) => achieved !== 1)
-    .sort((a, b) => a.percent > b.percent ? -1 : 1)
-    .slice(0, 3);
 
 const buildHtml = (games) => {
   const gamesHtml = games
@@ -239,127 +230,6 @@ const buildCompletionHtml = (achievedCount, total, iconSize = 14) => {
 };
 
 
-const buildRouletteHtml = (games) => {
-  // Filter and map game data for the roulette
-  const gamesData = games
-    .filter(({ nextAchievements }) => nextAchievements.length > 0)
-    .map(({ game: { name, appid, libraryUrl }, nextAchievements }) => ({
-      name,
-      appid,
-      imageUrl: libraryUrl,
-      nextAchievements: nextAchievements || []
-    }));
-
-  // Generate HTML blocks for each game
-  const gameBlocksHtml = gamesData.map((game, index) => `
-    <div id="game-block-${index}" class="game-block" style="display: ${index === 0 ? 'flex' : 'none'}; flex-direction: column; align-items: center;">
-      <a href="steam://rungameid/${game.appid}">
-        <img src="${game.imageUrl}" style="display: block; width: 300px; height:450px; background: #232323;" onerror="this.style.visibility='hidden';"/>
-      </a>
-      <p style="margin: 24px 0 0; font-size: 22px">${game.name}</p>
-      <ul style="margin: 32px 0 0; padding: 0; width: 450px;">
-        ${game.nextAchievements.map(achievement => `
-          <li style="display: flex; height: 48px; margin: 0 0 4px; padding: 12px; background: #232323;">
-            <img src="${achievement.imageUrl}" style="width: 48px; height: 48px; margin-right: 12px; background: #333;" onerror="this.style.visibility='hidden';" />
-            <div style="display: flex; flex-direction: column; flex-grow: 1; margin-right: 12px;">
-              <p style="margin: 0; font-size: 13px">${achievement?.name ?? ''}</p>
-              <p style="margin: 1px 0 0; font-size: 10px; overflow: hidden;">${achievement?.description ?? ''}</p>
-            </div>
-            <div style="display: flex; justify-content: center; align-items: center;">
-              <p style="font-size: 12px">${achievement?.percent?.toFixed(2) ?? '--'}%</p>
-            </div>
-          </li>
-        `).join('')}
-      </ul>
-    </div>
-  `).join('');
-
-  // Generate preload links for all images
-  const preloadLinks = gamesData.flatMap(game => [
-    game.imageUrl,
-    ...game.nextAchievements.map(ach => ach.imageUrl)
-  ]).filter(url => url).map(url => `<link href="${url}" as="image" rel="preload" />`).join('\n');
-
-  return `
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>ルーレット</title>
-    ${preloadLinks}
-    <style>
-        body {
-          margin: 0;
-          background: #121212;
-          color: #a2a2a2;
-        }
-        a:link { color: #aaaabb; text-decoration: none; }
-        a:visited { color: #777799; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        a:active { color: #afafbf; text-decoration: none; }
-    </style>
-  </head>
-  <body>
-    ${buildHeaderHtml('roulette')}
-    <div style="display: flex; padding: 64px 48px; flex-direction: column; align-items: center;">
-      <div id="roulette-container" style="width: 450px; min-height: 650px; display: flex; justify-content: center; align-items: flex-start;">
-        ${gameBlocksHtml}
-      </div>
-      <button id="start-button" style="margin-top: 32px; padding: 8px 24px; appearance: none; border: 0; border-radius: 0; background: #232323; color: #a2a2a2; font-size: 24px;">Have fun!</button>
-    </div>
-  </body>
-  <script>
-    const gamesCount = ${gamesData.length};
-    const $gameBlocks = document.querySelectorAll('.game-block');
-    const $startButton = document.getElementById('start-button');
-    let currentGameIndex = 0;
-
-    // Use the original interval calculation that the user preferred
-    const shuffle = (callback, weight, threshold) => {
-      const interval = weight < 30
-        ? 80
-        : 80 + 1.4 ** (weight - 30);
-
-      setTimeout(() => {
-        callback();
-        if (++weight < threshold) {
-          shuffle(callback, weight, threshold);
-        } else {
-          // Ensure the final game is truly random and update the display
-          const finalIndex = Math.floor(Math.random() * gamesCount);
-          if (currentGameIndex !== finalIndex) {
-            $gameBlocks[currentGameIndex].style.display = 'none';
-            $gameBlocks[finalIndex].style.display = 'flex';
-            currentGameIndex = finalIndex;
-          }
-          
-          $startButton.disabled = false;
-        }
-      }, interval);
-    }
-
-    $startButton.onclick = () => {
-      if (gamesCount === 0) return;
-      $startButton.disabled = true;
-
-      shuffle(() => {
-        // To avoid the roulette looking like it's stuck, ensure the next item is always different.
-        if (gamesCount <= 1) return;
-
-        let nextIndex;
-        do {
-          nextIndex = Math.floor(Math.random() * gamesCount);
-        } while (nextIndex === currentGameIndex);
-
-        $gameBlocks[currentGameIndex].style.display = 'none';
-        $gameBlocks[nextIndex].style.display = 'flex';
-        currentGameIndex = nextIndex;
-      }, 1, 50);
-    }
-  </script>
-</html>
-  `;
-}
-
 fetchGames()
   .then(attachStoreData)
   // .then(games => games.slice(0, 10).map(fetchAchievements))
@@ -368,6 +238,6 @@ fetchGames()
   .then(games => fetchTimeToBeat(games.map(({ game }) => game.appid)).then(timesByAppid => [games, timesByAppid]))
   .then(([games, timesByAppid]) => {
     fs.writeFileSync('./index.html', buildHtml(games))
-    fs.writeFileSync('./roulette.html', buildRouletteHtml(games))
+    fs.writeFileSync('./roulette.html', buildRouletteHtml(games, timesByAppid))
     fs.writeFileSync('./backlog.html', buildBacklogHtml(games, timesByAppid))
   });

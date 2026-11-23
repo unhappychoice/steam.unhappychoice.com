@@ -1,7 +1,7 @@
 const { buildCardHtml, buildTimeToBeatHtml, buildDifficultyBadgeHtml, formatPercent } = require('./cardParts');
 
 const buildNotStartedCardHtml = ({ game, achievements, rarestPercent, timeToBeat }) => buildCardHtml(game, `
-          <div style="margin-top: 10px;">${game.store.tags.map(buildTagHtml).join('')}</div>
+          <div style="margin-top: 10px;">${game.store.tags.slice(0, 5).map(buildTagHtml).join('')}</div>
           <p style="margin: 12px 0; font-size: 15px; line-height: 1.7;">${game.store.shortDescription}</p>
           ${buildDifficultyHtml(achievements.length, rarestPercent)}
           ${buildTimeToBeatHtml(timeToBeat)}
