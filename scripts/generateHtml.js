@@ -1,6 +1,7 @@
 const fs = require('fs');
 const { buildDataAttributes, buildControlsHtml, gameListScript } = require('./gameListControls');
 const { buildSummaryHtml } = require('./summary');
+const { icon, colors } = require('./icons');
 
 const fetchGames = () => {
   const url = `https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/`
@@ -155,13 +156,12 @@ const buildHtml = (games) => {
           <span style="display: inline-block; flex-grow: 1; margin-right: 16px;">${name}</span>
           <span style="display: inline-block; width: 60px; margin-right: 16px;">${Math.round(playtime_forever / 60 * 10) / 10}h</span>
           <span style="display: inline-block; width: 60px; margin-right: 16px;">${Math.round((playtime_2weeks ?? 0) / 60 * 10) / 10}h</span>
-          <span style="display: inline-block; width: 72px; margin-right: 16px; text-align: right;">
-            ${achievements?.length ? `${achievements.filter(({ achieved }) => achieved).length} / ${achievements.length}` : ''}
+          <span style="display: inline-flex; flex-direction: column; align-items: flex-end; width: 72px; margin-right: 16px;">
+            <span>${achievements?.length ? `${achievements.filter(({ achieved }) => achieved).length} / ${achievements.length}` : ''}</span>
+            ${dlcProgress.total ? `<span style="${dlcLineStyle}">${dlcProgress.achievedCount} / ${dlcProgress.total}</span>` : ''}
           </span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">
-            ${buildCompletionHtml(achievements?.filter(({ achieved }) => achieved).length, achievements?.length)}
-          </span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; font-size: 14px; white-space: nowrap;">
+          <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
+            <span style="display: inline-flex; align-items: center;">${buildCompletionHtml(achievements?.filter(({ achieved }) => achieved).length, achievements?.length)}</span>
             ${buildDlcProgressHtml(dlcProgress)}
           </span>
           <span style="display: inline-flex; width: 280px;">
@@ -244,39 +244,32 @@ const buildAchievementSetsHtml = (achievementSets) => achievementSets.map(buildA
 const buildAchievementSetHtml = ({ name, isDlc, achievements, achievedCount }) => `
         <div style="display: flex; align-items: center; height: 24px; margin-left: 102px; font-size: 13px; color: #7a7a7a;">
           <span style="display: inline-flex; align-items: center; flex-grow: 1; min-width: 0; margin-right: 16px;">
-            <span style="display: inline-flex; flex-shrink: 0; width: 14px; margin-right: 6px;">${isDlc ? dlcIcon : ''}</span>
+            <span style="display: inline-flex; flex-shrink: 0; width: 14px; margin-right: 6px;">${isDlc ? icon('dlc', colors.dlc) : ''}</span>
             <span style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" title="${name}">${name}</span>
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 72px; margin-right: 16px; text-align: right;">${achievedCount} / ${achievements.length}</span>
           <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">${buildCompletionHtml(achievedCount, achievements.length)}</span>
-          <span style="display: inline-block; width: 80px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 280px;"></span>
         </div>
 `;
 
-const dlcIcon = `
-  <svg viewBox="0 0 24 24" width="14" height="14" fill="#a970ff" aria-label="DLC">
-    <path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/>
-  </svg>
-`;
 
 const buildDlcProgressHtml = ({ achievedCount, total }) => !total ? '' : `
-            <span style="display: inline-flex; margin-right: 4px;">${dlcIcon}</span>
-            ${buildCompletionHtml(achievedCount, total)}`;
+            <span style="display: inline-flex; align-items: center; ${dlcLineStyle}">
+              ${icon('dlc', colors.dlc, 12, 'margin-right: 4px;')}
+              ${buildCompletionHtml(achievedCount, total, 12)}
+            </span>`;
 
-const buildCompletionHtml = (achievedCount, total) => {
+const dlcLineStyle = 'font-size: 12px; line-height: 16px; color: #7a7a7a;';
+
+const buildCompletionHtml = (achievedCount, total, iconSize = 14) => {
   if (!total) return '--';
   if (achievedCount < total) return `${Math.round(achievedCount / total * 100)} %`;
 
-  return `<span style="color: #d4af37;">100 %</span>${trophyIcon}`;
+  return `<span style="color: ${colors.gold};">100 %</span>${icon('trophy', colors.gold, iconSize, 'margin-left: 4px;')}`;
 };
 
-const trophyIcon = `
-  <svg viewBox="0 0 24 24" width="14" height="14" fill="#d4af37" style="flex-shrink: 0; margin-left: 4px;" aria-label="Completed">
-    <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/>
-  </svg>
-`;
 
 const buildRouletteHtml = (games) => {
   // Filter and map game data for the roulette
