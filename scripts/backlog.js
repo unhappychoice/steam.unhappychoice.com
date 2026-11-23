@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const { icon, colors } = require('./icons');
 
 const buildBacklogHtml = (games, timesByAppid) => {
@@ -16,6 +18,8 @@ const buildBacklogHtml = (games, timesByAppid) => {
       a:link, a:visited { color: #aaaabb; text-decoration: none; }
       a:hover { text-decoration: underline; }
       .backlog-card.is-picked { outline: 2px solid ${colors.gold}; }
+      [data-full] { cursor: zoom-in; }
+      .lightbox-nav { position: absolute; top: 50%; padding: 12px 16px; border: 0; border-radius: 6px; background: rgba(255, 255, 255, .08); color: #e0e0e0; font-size: 28px; cursor: pointer; transform: translateY(-50%); }
     </style>
   </head>
   <body>
@@ -29,7 +33,10 @@ const buildBacklogHtml = (games, timesByAppid) => {
       </div>
       ${candidates.map(buildCardHtml).join('')}
     </div>
+    ${lightboxHtml}
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js"></script>
     <script>${pickScript}</script>
+    <script>${fs.readFileSync(path.join(__dirname, 'client', 'lightbox.js'), 'utf8')}</script>
   </body>
 </html>
   `;
@@ -37,7 +44,7 @@ const buildBacklogHtml = (games, timesByAppid) => {
 
 const buildCardHtml = ({ game: { appid, name, capsuleUrl, store }, achievements, rarestPercent, timeToBeat }) => `
       <div class="backlog-card" style="display: flex; gap: 28px; margin-bottom: 20px; padding: 24px; border-radius: 10px; background: #1a1a1a;">
-        ${buildMediaHtml(capsuleUrl, store.trailerUrl)}
+        ${buildMediaHtml(capsuleUrl, store)}
         <div style="flex-grow: 1; min-width: 0;">
           <div style="display: flex; align-items: baseline; gap: 12px;">
             <span style="font-size: 24px; color: #e0e0e0;">${name}</span>
@@ -47,7 +54,7 @@ const buildCardHtml = ({ game: { appid, name, capsuleUrl, store }, achievements,
           <p style="margin: 12px 0; font-size: 15px; line-height: 1.7;">${store.shortDescription}</p>
           ${buildDifficultyHtml(achievements.length, rarestPercent)}
           ${buildTimeToBeatHtml(timeToBeat)}
-          <div style="display: flex; gap: 8px; margin-top: 14px;">${store.screenshotUrls.map(buildScreenshotHtml).join('')}</div>
+          <div style="display: flex; gap: 8px; margin-top: 14px;">${store.screenshots.map(buildScreenshotHtml).join('')}</div>
           <div style="display: flex; gap: 20px; margin-top: 14px; font-size: 15px;">
             <a href="steam://rungameid/${appid}">▶ 起動</a>
             <a href="https://store.steampowered.com/app/${appid}" target="_blank" rel="noopener noreferrer">ストア</a>
@@ -57,8 +64,8 @@ const buildCardHtml = ({ game: { appid, name, capsuleUrl, store }, achievements,
         </div>
       </div>`;
 
-const buildMediaHtml = (capsuleUrl, trailerUrl) => `
-        <div style="flex-shrink: 0; width: 520px; height: 297px; border-radius: 6px; overflow: hidden; background: #232323;">
+const buildMediaHtml = (capsuleUrl, { trailerUrl, fullTrailerUrl }) => `
+        <div data-full="${fullTrailerUrl ?? capsuleUrl}" data-type="${fullTrailerUrl ? 'video' : 'image'}" style="flex-shrink: 0; width: 520px; height: 297px; border-radius: 6px; overflow: hidden; background: #232323;">
           ${trailerUrl
             ? `<video src="${trailerUrl}" poster="${capsuleUrl}" muted loop playsinline preload="none" style="width: 100%; height: 100%; object-fit: cover;" onmouseover="this.play()" onmouseout="this.pause()"></video>`
             : `<img src="${capsuleUrl}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.visibility='hidden';" />`}
@@ -67,8 +74,8 @@ const buildMediaHtml = (capsuleUrl, trailerUrl) => `
 const buildTagHtml = (tag) =>
   `<span style="display: inline-block; margin: 0 6px 4px 0; padding: 2px 10px; border-radius: 12px; background: #262626; font-size: 12px;">${tag}</span>`;
 
-const buildScreenshotHtml = (url) =>
-  `<img src="${url}" loading="lazy" style="width: 200px; height: 113px; border-radius: 4px; object-fit: cover; background: #232323;" />`;
+const buildScreenshotHtml = ({ thumbnailUrl, fullUrl }) =>
+  `<img src="${thumbnailUrl}" data-full="${fullUrl}" data-type="image" loading="lazy" style="width: 200px; height: 113px; border-radius: 4px; object-fit: cover; background: #232323;" />`;
 
 const buildDifficultyHtml = (count, rarest) => {
   const [label, color] = difficulty(rarest);
@@ -103,6 +110,14 @@ const rarestPercent = (achievements) => {
 
   return percents.length ? Math.min(...percents) : undefined;
 };
+
+const lightboxHtml = `
+    <div id="lightbox" style="display: none; position: fixed; inset: 0; z-index: 10; align-items: center; justify-content: center; background: rgba(0, 0, 0, .92);">
+      <div id="lightbox-stage" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;"></div>
+      <button id="lightbox-prev" type="button" class="lightbox-nav" style="left: 24px;">‹</button>
+      <button id="lightbox-next" type="button" class="lightbox-nav" style="right: 24px;">›</button>
+    </div>
+`;
 
 const pickScript = `
   const $cards = [...document.querySelectorAll('.backlog-card')];

@@ -46,16 +46,27 @@ const buildStoreDetails = (item, tagNames) => ({
   shortDescription: item?.basic_info?.short_description ?? '',
   tags: (item?.tagids ?? []).map(tagid => tagNames[tagid]).filter(Boolean),
   review: item?.reviews?.summary_filtered,
-  screenshotUrls: (item?.screenshots?.all_ages_screenshots ?? []).slice(0, 3)
-    .map(({ filename }) => `${storeAssetBaseUrl}${filename.replace('.jpg', '.600x338.jpg')}`),
-  trailerUrl: buildTrailerUrl(item?.trailers?.highlights?.[0])
+  screenshots: (item?.screenshots?.all_ages_screenshots ?? []).slice(0, 3).map(({ filename }) => ({
+    thumbnailUrl: `${storeAssetBaseUrl}${filename.replace('.jpg', '.600x338.jpg')}`,
+    fullUrl: `${storeAssetBaseUrl}${filename}`
+  })),
+  trailerUrl: buildTrailerUrl(item?.trailers?.highlights?.[0]),
+  fullTrailerUrl: buildFullTrailerUrl(item?.trailers?.highlights?.[0])
 });
 
 const buildTrailerUrl = (trailer) => {
   const file = trailer?.microtrailer?.find(({ type }) => type === 'video/mp4');
 
-  return file && `https://video.akamai.steamstatic.com/store_trailers/${file.filename}`;
+  return file && `${trailerBaseUrl}${file.filename}`;
 };
+
+const buildFullTrailerUrl = (trailer) => {
+  const stream = trailer?.adaptive_trailers?.find(({ encoding }) => encoding === 'hls_h264');
+
+  return stream && `${trailerBaseUrl}${stream.cdn_path}`;
+};
+
+const trailerBaseUrl = 'https://video.akamai.steamstatic.com/store_trailers/';
 
 const buildAssetUrl = (assets, filename) =>
   filename && `${storeAssetBaseUrl}${assets.asset_url_format.replace('${FILENAME}', filename)}`;
