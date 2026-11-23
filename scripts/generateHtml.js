@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { buildDataAttributes, buildControlsHtml, gameListScript } = require('./gameListControls');
 
 const fetchGames = () => {
   const url = `https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/`
@@ -18,6 +19,37 @@ const fetchGames = () => {
     .then(json => json.response.games)
     .then(games => games.sort((a, b) => a.name > b.name ? 1 : -1))
 };
+
+const attachStoreAssets = (games) =>
+  Promise.all(chunk(games, 100).map(fetchStoreAssets))
+    .then(results => Object.assign({}, ...results))
+    .then(assetsByAppid => games.map(game => ({ ...game, ...buildImageUrls(game.appid, assetsByAppid[game.appid]) })));
+
+const chunk = (items, size) =>
+  Array.from({ length: Math.ceil(items.length / size) }, (_, i) => items.slice(i * size, (i + 1) * size));
+
+const fetchStoreAssets = (games) => {
+  const input = {
+    ids: games.map(({ appid }) => ({ appid })),
+    context: { language: 'japanese', country_code: 'JP' },
+    data_request: { include_assets: true }
+  };
+
+  return fetch(`https://api.steampowered.com/IStoreBrowseService/GetItems/v1/?${new URLSearchParams({ input_json: JSON.stringify(input) })}`)
+    .then(response => response.json())
+    .then(json => Object.fromEntries((json.response.store_items ?? []).map(({ appid, assets }) => [appid, assets])))
+    .catch(() => ({}));
+};
+
+const buildImageUrls = (appid, assets) => ({
+  headerUrl: buildAssetUrl(assets, assets?.header) ?? `${storeAssetBaseUrl}steam/apps/${appid}/header.jpg`,
+  libraryUrl: buildAssetUrl(assets, assets?.library_capsule) ?? `${storeAssetBaseUrl}steam/apps/${appid}/library_600x900.jpg`
+});
+
+const buildAssetUrl = (assets, filename) =>
+  filename && `${storeAssetBaseUrl}${assets.asset_url_format.replace('${FILENAME}', filename)}`;
+
+const storeAssetBaseUrl = 'https://shared.akamai.steamstatic.com/store_item_assets/';
 
 const fetchAchievements = (game) => {
   const url = `https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/`;
@@ -105,10 +137,11 @@ const pickNextAchievements = (achievements) =>
 
 const buildHtml = (games) => {
   const gamesHtml = games
-    .map(({ game: { appid, name, playtime_forever, playtime_2weeks }, achievements, achievementSets }) => `
-      <li style="padding: 8px 32px; list-style: none;" onMouseOut="this.style.background='transparent';" onMouseOver="this.style.background='rgba(255, 255, 255, .03)'">
+    .map((gameStats, index) => [gameStats, buildDataAttributes(gameStats, index)])
+    .map(([{ game: { appid, name, playtime_forever, playtime_2weeks, headerUrl }, achievements, achievementSets }, dataAttributes]) => `
+      <li ${dataAttributes} style="padding: 8px 32px; list-style: none;" onMouseOut="this.style.background='transparent';" onMouseOver="this.style.background='rgba(255, 255, 255, .03)'">
         <div style="display: flex; align-items: center; height: 40px;">
-          <img style="display: inline-block; height: 40px; margin-right: 16px;" src="${`https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appid}/header.jpg`}" />
+          <img style="display: inline-block; flex-shrink: 0; width: 86px; height: 40px; margin-right: 16px; object-fit: cover; background: #232323;" src="${headerUrl}" onerror="this.style.visibility='hidden';" />
           <span style="display: inline-block; flex-grow: 1; margin-right: 16px;">${name}</span>
           <span style="display: inline-block; width: 60px; margin-right: 16px;">${Math.round(playtime_forever / 60 * 10) / 10}h</span>
           <span style="display: inline-block; width: 60px; margin-right: 16px;">${Math.round((playtime_2weeks ?? 0) / 60 * 10) / 10}h</span>
@@ -178,9 +211,15 @@ const buildHtml = (games) => {
     </style>
   </head>
   <body>
-    <ul style="margin: 0 auto; padding: 32px 0; max-width: 1200px;">
-      ${gamesHtml}
-    </ul>
+    <div style="margin: 0 auto; max-width: 1200px;">
+      ${buildControlsHtml()}
+      <ul id="games" style="margin: 0; padding: 0 0 32px;">
+        ${gamesHtml}
+      </ul>
+    </div>
+    <script>
+${gameListScript()}
+    </script>
   </body>
 </html>
   `;
@@ -224,10 +263,10 @@ const buildRouletteHtml = (games) => {
   // Filter and map game data for the roulette
   const gamesData = games
     .filter(({ nextAchievements }) => nextAchievements.length > 0)
-    .map(({ game: { name, appid }, nextAchievements }) => ({
+    .map(({ game: { name, appid, libraryUrl }, nextAchievements }) => ({
       name,
       appid,
-      imageUrl: `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appid}/library_600x900.jpg`,
+      imageUrl: libraryUrl,
       nextAchievements: nextAchievements || []
     }));
 
@@ -340,6 +379,7 @@ const buildRouletteHtml = (games) => {
 }
 
 fetchGames()
+  .then(attachStoreAssets)
   // .then(games => games.slice(0, 10).map(fetchAchievements))
   .then(games => games.map(fetchAchievements))
   .then(promises => Promise.all(promises))
