@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { buildDataAttributes, buildControlsHtml, gameListScript } = require('./gameListControls');
 
 const fetchGames = () => {
   const url = `https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/`
@@ -136,8 +137,9 @@ const pickNextAchievements = (achievements) =>
 
 const buildHtml = (games) => {
   const gamesHtml = games
-    .map(({ game: { appid, name, playtime_forever, playtime_2weeks, headerUrl }, achievements, achievementSets }) => `
-      <li style="padding: 8px 32px; list-style: none;" onMouseOut="this.style.background='transparent';" onMouseOver="this.style.background='rgba(255, 255, 255, .03)'">
+    .map((gameStats, index) => [gameStats, buildDataAttributes(gameStats, index)])
+    .map(([{ game: { appid, name, playtime_forever, playtime_2weeks, headerUrl }, achievements, achievementSets }, dataAttributes]) => `
+      <li ${dataAttributes} style="padding: 8px 32px; list-style: none;" onMouseOut="this.style.background='transparent';" onMouseOver="this.style.background='rgba(255, 255, 255, .03)'">
         <div style="display: flex; align-items: center; height: 40px;">
           <img style="display: inline-block; flex-shrink: 0; width: 86px; height: 40px; margin-right: 16px; object-fit: cover; background: #232323;" src="${headerUrl}" onerror="this.style.visibility='hidden';" />
           <span style="display: inline-block; flex-grow: 1; margin-right: 16px;">${name}</span>
@@ -209,9 +211,15 @@ const buildHtml = (games) => {
     </style>
   </head>
   <body>
-    <ul style="margin: 0 auto; padding: 32px 0; max-width: 1200px;">
-      ${gamesHtml}
-    </ul>
+    <div style="margin: 0 auto; max-width: 1200px;">
+      ${buildControlsHtml()}
+      <ul id="games" style="margin: 0; padding: 0 0 32px;">
+        ${gamesHtml}
+      </ul>
+    </div>
+    <script>
+${gameListScript()}
+    </script>
   </body>
 </html>
   `;
