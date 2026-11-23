@@ -15,5 +15,13 @@ const pickCard = () => {
   $card?.scrollIntoView({ behavior: 'smooth', block: 'center' });
 };
 
+const toggleMore = ($button) => {
+  const $more = $button.parentElement.querySelector('[data-more]');
+  const isOpening = $more.style.display === 'none';
+  $more.style.display = isOpening ? 'block' : 'none';
+  $button.textContent = isOpening ? '閉じる' : $button.dataset.label;
+};
+
+document.querySelectorAll('[data-more-toggle]').forEach($button => $button.addEventListener('click', () => toggleMore($button)));
 $tabButtons.forEach($button => $button.addEventListener('click', () => showTab($button.dataset.tabTarget)));
 document.getElementById('pick-button').addEventListener('click', pickCard);
