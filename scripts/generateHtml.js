@@ -153,9 +153,12 @@ const buildHtml = (games) => {
     .map((gameStats, index) => [gameStats, buildDataAttributes(gameStats, index)])
     .map(([{ game: { appid, name, playtime_forever, playtime_2weeks, headerUrl }, achievements, achievementSets, dlcProgress }, dataAttributes]) => `
       <li ${dataAttributes} style="padding: 8px 32px; list-style: none;" onMouseOut="this.style.background='transparent';" onMouseOver="this.style.background='rgba(255, 255, 255, .03)'">
-        <div style="display: flex; align-items: center; height: 40px;">
+        <div ${achievementSets.length ? 'data-set-toggle' : ''} style="display: flex; align-items: center; height: 40px; ${achievementSets.length ? 'cursor: pointer;' : ''}">
           <img style="display: inline-block; flex-shrink: 0; width: 86px; height: 40px; margin-right: 16px; object-fit: cover; background: #232323;" src="${headerUrl}" onerror="this.style.visibility='hidden';" />
-          <span style="display: inline-block; flex-grow: 1; margin-right: 16px;">${name}</span>
+          <span style="display: inline-flex; align-items: center; flex-grow: 1; margin-right: 16px;">
+            ${name}
+            ${buildSetToggleHtml(achievementSets)}
+          </span>
           <span style="display: inline-block; width: 60px; margin-right: 16px;">${Math.round(playtime_forever / 60 * 10) / 10}h</span>
           <span style="display: inline-block; width: 60px; margin-right: 16px;">${Math.round((playtime_2weeks ?? 0) / 60 * 10) / 10}h</span>
           <span style="display: inline-flex; flex-direction: column; align-items: flex-end; width: 72px; margin-right: 16px;">
@@ -241,7 +244,16 @@ ${gameListScript()}
   `;
 };
 
-const buildAchievementSetsHtml = (achievementSets) => achievementSets.map(buildAchievementSetHtml).join('');
+const buildSetToggleHtml = (achievementSets) => !achievementSets.length ? '' : `
+            <span style="display: inline-flex; align-items: center; flex-shrink: 0; margin-left: 10px; font-size: 12px; color: #6f6f6f;">
+              ${achievementSets.length} セット
+              <span data-chevron style="display: inline-flex; margin-left: 2px; transition: transform .2s;">${icon('chevronDown', '#6f6f6f', 16)}</span>
+            </span>`;
+
+const buildAchievementSetsHtml = (achievementSets) => !achievementSets.length ? '' : `
+        <div data-sets style="display: none;">
+          ${achievementSets.map(buildAchievementSetHtml).join('')}
+        </div>`;
 
 const buildAchievementSetHtml = ({ name, isDlc, achievements, achievedCount }) => `
         <div style="display: flex; align-items: center; height: 24px; margin-left: 102px; font-size: 13px; color: #7a7a7a;">
