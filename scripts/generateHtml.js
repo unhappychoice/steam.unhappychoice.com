@@ -74,6 +74,7 @@ const buildSetInfo = (appid, apiname, { achievements, groups }) => {
 
   return {
     imageUrl: detail && `https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/${appid}/${detail.icon_gray}`,
+    unlockedImageUrl: detail && `https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/${appid}/${detail.icon}`,
     groupid: detail?.groupid ?? 0,
     setName: group?.localized_name,
     setOrder: group?.order ?? 0,
