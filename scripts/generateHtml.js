@@ -11,7 +11,9 @@ const fetchGames = () => {
     steamid: '76561198120099395',
     format: 'json',
     include_appinfo: '1',
-    include_played_free_games: '1'
+    include_played_free_games: '1',
+    include_all_free_games: '1',
+    skip_unvetted_apps: '0'
   };
 
   const queryString = `?${Object.entries(queries).map(([key, value]) => `${key}=${value}`).join('&')}`;
