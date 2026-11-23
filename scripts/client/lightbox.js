@@ -50,13 +50,13 @@ const moveLightbox = (step) => {
   renderLightbox();
 };
 
-document.querySelectorAll('[data-full]').forEach($item => $item.addEventListener('click', () => openLightbox($item)));
-document.getElementById('lightbox-prev').addEventListener('click', event => { event.stopPropagation(); moveLightbox(-1); });
-document.getElementById('lightbox-next').addEventListener('click', event => { event.stopPropagation(); moveLightbox(1); });
-$lightbox.addEventListener('click', event => { if (event.target === $lightbox || event.target === $stage) closeLightbox(); });
+document.querySelectorAll('[data-full]').forEach($item => $item.addEventListener('click', () => withTransition(() => openLightbox($item))));
+document.getElementById('lightbox-prev').addEventListener('click', event => { event.stopPropagation(); withTransition(() => moveLightbox(-1)); });
+document.getElementById('lightbox-next').addEventListener('click', event => { event.stopPropagation(); withTransition(() => moveLightbox(1)); });
+$lightbox.addEventListener('click', event => { if (event.target === $lightbox || event.target === $stage) withTransition(closeLightbox); });
 document.addEventListener('keydown', ({ key }) => {
   if ($lightbox.style.display === 'none') return;
-  if (key === 'Escape') closeLightbox();
-  if (key === 'ArrowLeft') moveLightbox(-1);
-  if (key === 'ArrowRight') moveLightbox(1);
+  if (key === 'Escape') withTransition(closeLightbox);
+  if (key === 'ArrowLeft') withTransition(() => moveLightbox(-1));
+  if (key === 'ArrowRight') withTransition(() => moveLightbox(1));
 });

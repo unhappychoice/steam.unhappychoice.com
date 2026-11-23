@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { colors } = require('../icons');
-const { buildHeaderHtml } = require('../header');
+const { buildHeaderHtml, buildSharedHeadHtml } = require('../header');
 const { buildCandidates } = require('./candidates');
 
 const buildRouletteHtml = (games, timesByAppid) => `
@@ -9,6 +9,7 @@ const buildRouletteHtml = (games, timesByAppid) => `
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>今日の一本</title>
+    ${buildSharedHeadHtml()}
     <style>
       body { margin: 0; background: #121212; color: #a2a2a2; font-size: 14px; }
       a:link, a:visited { color: #aaaabb; text-decoration: none; }
