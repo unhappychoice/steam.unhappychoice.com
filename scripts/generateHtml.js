@@ -1,4 +1,6 @@
 const fs = require('fs');
+const { steamId } = require('./config');
+const { buildLinksHtml } = require('./gameLinks');
 const { buildDataAttributes, buildControlsHtml, gameListScript } = require('./gameListControls');
 const { buildSummaryHtml } = require('./summary');
 const { icon, colors } = require('./icons');
@@ -8,7 +10,7 @@ const fetchGames = () => {
 
   const queries = {
     key: process.env.STEAM_API_KEY,
-    steamid: '76561198120099395',
+    steamid: steamId,
     format: 'json',
     include_appinfo: '1',
     include_played_free_games: '1',
@@ -61,7 +63,7 @@ const fetchAchievements = (game) => {
 
   const queries = {
     key: process.env.STEAM_API_KEY,
-    steamid: '76561198120099395',
+    steamid: steamId,
     appid: game.appid,
     l: 'japanese'
   }
@@ -153,15 +155,15 @@ const buildHtml = (games) => {
     .map((gameStats, index) => [gameStats, buildDataAttributes(gameStats, index)])
     .map(([{ game: { appid, name, playtime_forever, playtime_2weeks, headerUrl }, achievements, achievementSets, dlcProgress }, dataAttributes]) => `
       <li ${dataAttributes} style="padding: 8px 32px; list-style: none;" onMouseOut="this.style.background='transparent';" onMouseOver="this.style.background='rgba(255, 255, 255, .03)'">
-        <div ${achievementSets.length ? 'data-set-toggle' : ''} style="display: flex; align-items: center; height: 40px; ${achievementSets.length ? 'cursor: pointer;' : ''}">
+        <div data-toggle style="display: flex; align-items: center; height: 40px; cursor: pointer;">
           <img style="display: inline-block; flex-shrink: 0; width: 86px; height: 40px; margin-right: 16px; object-fit: cover; background: #232323;" src="${headerUrl}" onerror="this.style.visibility='hidden';" />
           <span style="display: inline-flex; align-items: center; flex-grow: 1; margin-right: 16px;">
             ${name}
-            ${buildSetToggleHtml(achievementSets)}
+            ${buildSetCountHtml(achievementSets)}
           </span>
           <span style="display: inline-block; width: 60px; margin-right: 16px;">${Math.round(playtime_forever / 60 * 10) / 10}h</span>
           <span style="display: inline-block; width: 60px; margin-right: 16px;">${Math.round((playtime_2weeks ?? 0) / 60 * 10) / 10}h</span>
-          <span style="display: inline-flex; flex-direction: column; align-items: flex-end; width: 72px; margin-right: 16px;">
+          <span style="display: inline-flex; flex-direction: column; align-items: flex-end; width: 96px; margin-right: 16px; white-space: nowrap;">
             <span>${achievements?.length ? `${achievements.filter(({ achieved }) => achieved).length} / ${achievements.length}` : ''}</span>
             ${dlcProgress.total ? `<span style="${dlcLineStyle}">${dlcProgress.achievedCount} / ${dlcProgress.total}</span>` : ''}
           </span>
@@ -169,30 +171,12 @@ const buildHtml = (games) => {
             <span style="display: inline-flex; align-items: center;">${buildCompletionHtml(achievements?.filter(({ achieved }) => achieved).length, achievements?.length)}</span>
             ${buildDlcProgressHtml(dlcProgress)}
           </span>
-          <span style="display: inline-flex; width: 280px;">
-            <span style="display: inline-block; margin-right: 16px;">
-              <a href="https://www.youtube.com/results?search_query=${encodeURI(name)}" target="_blank" rel="noopener noreferrer">
-                YouTube
-              </a>
-            </span>
-            <span style="display: inline-block; margin-right: 16px;">
-              <a href="https://www.youtube.com/results?search_query=${encodeURI(name + ' 実況')}" target="_blank" rel="noopener noreferrer">
-                実況
-              </a>
-            </span>
-            <span style="display: inline-block; margin-right: 16px;">
-              <a href="https://www.youtube.com/results?search_query=${encodeURI(name + ' VTuber')}" target="_blank" rel="noopener noreferrer">
-                VTuber
-              </a>
-            </span>
-            <span style="display: inline-block;">
-              <a href="https://www.youtube.com/results?search_query=${encodeURI(name)}&sp=EgIQAw%253D%253D" target="_blank" rel="noopener noreferrer">
-                再生リスト
-              </a>
-            </span>
-          </span>
+          <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">${icon('chevronDown', '#6f6f6f', 18)}</span>
         </div>
-        ${buildAchievementSetsHtml(achievementSets)}
+        <div data-details style="display: none;">
+          ${buildLinksHtml({ appid, name })}
+          ${achievementSets.map(buildAchievementSetHtml).join('')}
+        </div>
       </li>
     `)
     .join('');
@@ -244,16 +228,8 @@ ${gameListScript()}
   `;
 };
 
-const buildSetToggleHtml = (achievementSets) => !achievementSets.length ? '' : `
-            <span style="display: inline-flex; align-items: center; flex-shrink: 0; margin-left: 10px; font-size: 12px; color: #6f6f6f;">
-              ${achievementSets.length} セット
-              <span data-chevron style="display: inline-flex; margin-left: 2px; transition: transform .2s;">${icon('chevronDown', '#6f6f6f', 16)}</span>
-            </span>`;
-
-const buildAchievementSetsHtml = (achievementSets) => !achievementSets.length ? '' : `
-        <div data-sets style="display: none;">
-          ${achievementSets.map(buildAchievementSetHtml).join('')}
-        </div>`;
+const buildSetCountHtml = (achievementSets) => !achievementSets.length ? '' : `
+            <span style="flex-shrink: 0; margin-left: 10px; font-size: 12px; color: #6f6f6f;">${achievementSets.length} セット</span>`;
 
 const buildAchievementSetHtml = ({ name, isDlc, achievements, achievedCount }) => `
         <div style="display: flex; align-items: center; height: 24px; margin-left: 102px; font-size: 13px; color: #7a7a7a;">
@@ -262,9 +238,9 @@ const buildAchievementSetHtml = ({ name, isDlc, achievements, achievedCount }) =
             <span style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" title="${name}">${name}</span>
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
-          <span style="display: inline-block; width: 72px; margin-right: 16px; text-align: right;">${achievedCount} / ${achievements.length}</span>
+          <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">${achievedCount} / ${achievements.length}</span>
           <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">${buildCompletionHtml(achievedCount, achievements.length)}</span>
-          <span style="display: inline-block; width: 280px;"></span>
+          <span style="display: inline-block; width: 24px;"></span>
         </div>
 `;
 
