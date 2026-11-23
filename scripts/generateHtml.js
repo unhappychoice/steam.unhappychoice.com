@@ -1,6 +1,8 @@
 const fs = require('fs');
 const { steamId } = require('./config');
 const { buildLinksHtml } = require('./gameLinks');
+const { attachStoreData } = require('./store');
+const { buildBacklogHtml } = require('./backlog');
 const { buildDataAttributes, buildControlsHtml, gameListScript } = require('./gameListControls');
 const { buildSummaryHtml } = require('./summary');
 const { icon, colors } = require('./icons');
@@ -25,37 +27,6 @@ const fetchGames = () => {
     .then(json => json.response.games)
     .then(games => games.sort((a, b) => a.name > b.name ? 1 : -1))
 };
-
-const attachStoreAssets = (games) =>
-  Promise.all(chunk(games, 100).map(fetchStoreAssets))
-    .then(results => Object.assign({}, ...results))
-    .then(assetsByAppid => games.map(game => ({ ...game, ...buildImageUrls(game.appid, assetsByAppid[game.appid]) })));
-
-const chunk = (items, size) =>
-  Array.from({ length: Math.ceil(items.length / size) }, (_, i) => items.slice(i * size, (i + 1) * size));
-
-const fetchStoreAssets = (games) => {
-  const input = {
-    ids: games.map(({ appid }) => ({ appid })),
-    context: { language: 'japanese', country_code: 'JP' },
-    data_request: { include_assets: true }
-  };
-
-  return fetch(`https://api.steampowered.com/IStoreBrowseService/GetItems/v1/?${new URLSearchParams({ input_json: JSON.stringify(input) })}`)
-    .then(response => response.json())
-    .then(json => Object.fromEntries((json.response.store_items ?? []).map(({ appid, assets }) => [appid, assets])))
-    .catch(() => ({}));
-};
-
-const buildImageUrls = (appid, assets) => ({
-  headerUrl: buildAssetUrl(assets, assets?.header) ?? `${storeAssetBaseUrl}steam/apps/${appid}/header.jpg`,
-  libraryUrl: buildAssetUrl(assets, assets?.library_capsule) ?? `${storeAssetBaseUrl}steam/apps/${appid}/library_600x900.jpg`
-});
-
-const buildAssetUrl = (assets, filename) =>
-  filename && `${storeAssetBaseUrl}${assets.asset_url_format.replace('${FILENAME}', filename)}`;
-
-const storeAssetBaseUrl = 'https://shared.akamai.steamstatic.com/store_item_assets/';
 
 const fetchAchievements = (game) => {
   const url = `https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/`;
@@ -381,11 +352,12 @@ const buildRouletteHtml = (games) => {
 }
 
 fetchGames()
-  .then(attachStoreAssets)
+  .then(attachStoreData)
   // .then(games => games.slice(0, 10).map(fetchAchievements))
   .then(games => games.map(fetchAchievements))
   .then(promises => Promise.all(promises))
   .then(games => {
     fs.writeFileSync('./index.html', buildHtml(games))
     fs.writeFileSync('./roulette.html', buildRouletteHtml(games))
+    fs.writeFileSync('./backlog.html', buildBacklogHtml(games))
   });
