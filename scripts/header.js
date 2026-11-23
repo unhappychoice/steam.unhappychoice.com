@@ -26,7 +26,7 @@ const buildNavLinkHtml = ({ href, label }, isActive) => `
 const buildSharedHeadHtml = () => `<style>${sharedStyle}</style>`;
 
 const sharedStyle = `
-      html { scrollbar-gutter: stable; }
+      html { scrollbar-gutter: stable; background: #121212; color-scheme: dark; }
       @view-transition { navigation: auto; }
       ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .25s; }
       ::view-transition-group(nav-indicator) { animation-duration: .35s; animation-timing-function: cubic-bezier(.2, .8, .2, 1); }
