@@ -19,7 +19,7 @@ const buildBacklogHtml = (games) => {
     </style>
   </head>
   <body>
-    <div style="margin: 0 auto; padding: 32px; max-width: 1100px;">
+    <div style="margin: 0 auto; padding: 32px; max-width: 1400px;">
       <div style="display: flex; align-items: center; margin-bottom: 24px;">
         <div>
           <h1 style="margin: 0; font-size: 22px; font-weight: normal; color: #e0e0e0;">次に始めるゲーム</h1>
@@ -36,18 +36,18 @@ const buildBacklogHtml = (games) => {
 };
 
 const buildCardHtml = ({ game: { appid, name, capsuleUrl, store }, achievements, rarestPercent }) => `
-      <div class="backlog-card" style="display: flex; gap: 20px; margin-bottom: 16px; padding: 16px; border-radius: 8px; background: #1a1a1a;">
+      <div class="backlog-card" style="display: flex; gap: 28px; margin-bottom: 20px; padding: 24px; border-radius: 10px; background: #1a1a1a;">
         ${buildMediaHtml(capsuleUrl, store.trailerUrl)}
         <div style="flex-grow: 1; min-width: 0;">
           <div style="display: flex; align-items: baseline; gap: 12px;">
-            <span style="font-size: 18px; color: #e0e0e0;">${name}</span>
-            ${store.review ? `<span style="font-size: 12px; color: #6f6f6f;">${store.review.review_score_label} (${store.review.percent_positive} %)</span>` : ''}
+            <span style="font-size: 24px; color: #e0e0e0;">${name}</span>
+            ${store.review ? `<span style="font-size: 13px; color: #6f6f6f;">${store.review.review_score_label} (${store.review.percent_positive} %)</span>` : ''}
           </div>
-          <div style="margin-top: 6px;">${store.tags.map(buildTagHtml).join('')}</div>
-          <p style="margin: 8px 0; font-size: 13px; line-height: 1.6;">${store.shortDescription}</p>
+          <div style="margin-top: 10px;">${store.tags.map(buildTagHtml).join('')}</div>
+          <p style="margin: 12px 0; font-size: 15px; line-height: 1.7;">${store.shortDescription}</p>
           ${buildDifficultyHtml(achievements.length, rarestPercent)}
-          <div style="display: flex; gap: 6px; margin-top: 10px;">${store.screenshotUrls.map(buildScreenshotHtml).join('')}</div>
-          <div style="display: flex; gap: 16px; margin-top: 10px; font-size: 13px;">
+          <div style="display: flex; gap: 8px; margin-top: 14px;">${store.screenshotUrls.map(buildScreenshotHtml).join('')}</div>
+          <div style="display: flex; gap: 20px; margin-top: 14px; font-size: 15px;">
             <a href="steam://rungameid/${appid}">▶ 起動</a>
             <a href="https://store.steampowered.com/app/${appid}" target="_blank" rel="noopener noreferrer">ストア</a>
             <a href="https://howlongtobeat.com/?q=${encodeURIComponent(name)}" target="_blank" rel="noopener noreferrer">HowLongToBeat</a>
@@ -57,23 +57,23 @@ const buildCardHtml = ({ game: { appid, name, capsuleUrl, store }, achievements,
       </div>`;
 
 const buildMediaHtml = (capsuleUrl, trailerUrl) => `
-        <div style="flex-shrink: 0; width: 320px; height: 183px; border-radius: 4px; overflow: hidden; background: #232323;">
+        <div style="flex-shrink: 0; width: 520px; height: 297px; border-radius: 6px; overflow: hidden; background: #232323;">
           ${trailerUrl
             ? `<video src="${trailerUrl}" poster="${capsuleUrl}" muted loop playsinline preload="none" style="width: 100%; height: 100%; object-fit: cover;" onmouseover="this.play()" onmouseout="this.pause()"></video>`
             : `<img src="${capsuleUrl}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.visibility='hidden';" />`}
         </div>`;
 
 const buildTagHtml = (tag) =>
-  `<span style="display: inline-block; margin: 0 6px 4px 0; padding: 1px 8px; border-radius: 10px; background: #262626; font-size: 11px;">${tag}</span>`;
+  `<span style="display: inline-block; margin: 0 6px 4px 0; padding: 2px 10px; border-radius: 12px; background: #262626; font-size: 12px;">${tag}</span>`;
 
 const buildScreenshotHtml = (url) =>
-  `<img src="${url}" loading="lazy" style="width: 140px; height: 79px; border-radius: 3px; object-fit: cover; background: #232323;" />`;
+  `<img src="${url}" loading="lazy" style="width: 200px; height: 113px; border-radius: 4px; object-fit: cover; background: #232323;" />`;
 
 const buildDifficultyHtml = (count, rarest) => {
   const [label, color] = difficulty(rarest);
 
   return `
-          <div style="display: flex; align-items: center; gap: 12px; font-size: 13px;">
+          <div style="display: flex; align-items: center; gap: 14px; font-size: 14px;">
             <span style="display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 10px; background: ${color}22; color: ${color};">${icon('trophy', color, 12)}${label}</span>
             <span>実績 ${count} 個</span>
             <span title="100 % 達成したプレイヤーの割合はこの値以下です">最難関 ${rarest === undefined ? '--' : `${rarest.toFixed(1)} %`}</span>
