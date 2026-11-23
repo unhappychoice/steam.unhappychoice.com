@@ -49,19 +49,21 @@ const fetchAchievements = (game) => {
         fetch(url2)
           .then(response => response.json())
           .then(json => json.achievementpercentages?.achievements),
-        fetchAchievementSets(game.appid)
+        fetchAchievementSets(game.appid, 'japanese'),
+        fetchAchievementSets(game.appid, 'english')
       ])
-      .then(([percentages, sets]) => achievements?.map(achievement => ({
+      .then(([percentages, sets, englishSets]) => achievements?.map(achievement => ({
         ...achievement,
         ...buildSetInfo(game.appid, achievement.apiname, sets),
+        englishName: englishSets.achievements?.find(({ internal_name }) => internal_name === achievement.apiname)?.localized_name,
         percent: +percentages?.find(({ name }) => name === achievement.apiname)?.percent
       })))
     )
     .then(achievements => buildGameStats(game, achievements));
 }
 
-const fetchAchievementSets = (appid) =>
-  fetch(`https://api.steampowered.com/IPlayerService/GetGameAchievements/v1/?appid=${appid}&language=japanese`)
+const fetchAchievementSets = (appid, language) =>
+  fetch(`https://api.steampowered.com/IPlayerService/GetGameAchievements/v1/?appid=${appid}&language=${language}`)
     .then(response => response.json())
     .then(json => json.response ?? {})
     .catch(() => ({}));

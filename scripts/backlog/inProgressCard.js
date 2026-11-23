@@ -25,7 +25,7 @@ const buildProgressHtml = (achievedCount, total) => `
             <span>残り ${total - achievedCount} 個</span>
           </div>`;
 
-const buildRemainingAchievementHtml = (gameName, { name, description, percent, imageUrl }) => `
+const buildRemainingAchievementHtml = (gameName, { name, englishName, description, percent, imageUrl }) => `
             <div style="display: flex; align-items: center; gap: 12px; padding: 6px 0; border-top: 1px solid #232323;">
               <img src="${imageUrl}" loading="lazy" style="flex-shrink: 0; width: 40px; height: 40px; border-radius: 4px; background: #232323;" onerror="this.style.visibility='hidden';" />
               <div style="flex-grow: 1; min-width: 0;">
@@ -35,7 +35,7 @@ const buildRemainingAchievementHtml = (gameName, { name, description, percent, i
               <span style="flex-shrink: 0; width: 56px; text-align: right; font-size: 13px;">${Number.isFinite(percent) ? `${percent.toFixed(1)} %` : '--'}</span>
               <span style="display: flex; flex-shrink: 0; gap: 12px; font-size: 12px;">
                 <a href="${youtubeSearch(`${gameName} ${name}`)}" target="_blank" rel="noopener noreferrer">YouTube</a>
-                <a href="${googleSearch(`${gameName} ${name} 実績`)}" target="_blank" rel="noopener noreferrer">Google</a>
+                <a href="${googleSearch(`${gameName} ${englishName ?? name} achievement`)}" target="_blank" rel="noopener noreferrer">Google</a>
               </span>
             </div>`;
 
