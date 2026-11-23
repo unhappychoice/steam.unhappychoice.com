@@ -1,5 +1,6 @@
 const { colors } = require('../icons');
 const { buildCardHtml, buildTimeToBeatHtml, buildDifficultyBadgeHtml, formatPercent } = require('./cardParts');
+const { rarestPercent } = require('../difficulty');
 
 const buildInProgressCardHtml = ({ game, achievements, timeToBeat }) => {
   const remaining = achievements
@@ -33,12 +34,6 @@ const buildProgressHtml = (achievedCount, total, rarestRemaining) => `
             <span>残り ${total - achievedCount} 個</span>
             <span title="残りの実績のうち、いちばん解除率が低いもの">残りの最難関 ${formatPercent(rarestRemaining)}</span>
           </div>`;
-
-const rarestPercent = (achievements) => {
-  const percents = achievements.map(({ percent }) => percent).filter(Number.isFinite);
-
-  return percents.length ? Math.min(...percents) : undefined;
-};
 
 const buildRemainingAchievementHtml = (gameName, { name, englishName, description, percent, imageUrl }) => `
             <div style="display: flex; align-items: center; gap: 12px; padding: 6px 0; border-top: 1px solid #232323;">

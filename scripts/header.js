@@ -21,7 +21,7 @@ const buildNavLinkHtml = ({ href, label }, isActive) => `
 const pages = [
   { key: 'index', href: 'index.html', label: 'ゲーム一覧' },
   { key: 'backlog', href: 'backlog.html', label: '次に遊ぶゲーム' },
-  { key: 'roulette', href: 'roulette.html', label: 'ルーレット' }
+  { key: 'roulette', href: 'roulette.html', label: '今日の一本' }
 ];
 
 module.exports = { buildHeaderHtml };

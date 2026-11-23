@@ -1,4 +1,5 @@
 const { icon } = require('../icons');
+const { difficulty } = require('../difficulty');
 
 const buildCardHtml = (game, bodyHtml, timeToBeat) => `
       <div class="backlog-card" style="display: flex; gap: 28px; margin-bottom: 20px; padding: 24px; border-radius: 10px; background: #1a1a1a;">
@@ -44,16 +45,9 @@ const buildTimeToBeatHtml = (timeToBeat, extraHtml = '') => `
 const formatHours = (hours) => hours ? `約 ${hours} 時間` : '--';
 
 const buildDifficultyBadgeHtml = (rarest) => {
-  const [label, color] = difficulty(rarest);
+  const { label, color } = difficulty(rarest);
 
   return `<span style="display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 10px; background: ${color}22; color: ${color};">${icon('trophy', color, 12)}${label}</span>`;
-};
-
-const difficulty = (rarest) => {
-  if (rarest === undefined) return ['不明', '#7a7a7a'];
-  if (rarest >= 8) return ['完走しやすい', '#6fcf97'];
-
-  return rarest >= 2 ? ['ふつう', '#f2c94c'] : ['やり込み', '#eb5757'];
 };
 
 const formatPercent = (percent) => percent === undefined ? '--' : `${percent.toFixed(1)} %`;

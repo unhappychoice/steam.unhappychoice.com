@@ -4,6 +4,7 @@ const { colors } = require('../icons');
 const { buildNotStartedCardHtml } = require('./notStartedCard');
 const { buildInProgressCardHtml } = require('./inProgressCard');
 const { buildHeaderHtml } = require('../header');
+const { rarestPercent } = require('../difficulty');
 
 const buildBacklogHtml = (games, timesByAppid) => {
   const withExtras = games
@@ -71,12 +72,6 @@ const lightboxHtml = `
 `;
 
 const achievedCount = (achievements) => achievements.filter(({ achieved }) => achieved === 1).length;
-
-const rarestPercent = (achievements) => {
-  const percents = achievements.map(({ percent }) => percent).filter(Number.isFinite);
-
-  return percents.length ? Math.min(...percents) : undefined;
-};
 
 const clientScript = (filename) => fs.readFileSync(path.join(__dirname, '..', 'client', filename), 'utf8');
 

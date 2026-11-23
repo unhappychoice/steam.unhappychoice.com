@@ -17,7 +17,7 @@ const fetchStoreItems = (games) => {
     data_request: {
       include_assets: true,
       include_basic_info: true,
-      include_tag_count: 5,
+      include_tag_count: 10,
       include_reviews: true,
       include_screenshots: true,
       include_trailers: true
