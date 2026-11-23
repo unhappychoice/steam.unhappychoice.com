@@ -190,8 +190,8 @@ const buildHtml = (games) => {
     </style>
   </head>
   <body>
-    ${buildHeaderHtml('index', 1136)}
-    <div style="margin: 0 auto; max-width: 1200px;">
+    ${buildHeaderHtml('index')}
+    <div style="margin: 0 auto; max-width: 1464px;">
       ${buildSummaryHtml(games)}
       ${buildControlsHtml()}
       <ul id="games" style="margin: 0; padding: 0 0 32px;">
@@ -299,7 +299,7 @@ const buildRouletteHtml = (games) => {
     </style>
   </head>
   <body>
-    ${buildHeaderHtml('roulette', 1136)}
+    ${buildHeaderHtml('roulette')}
     <div style="display: flex; padding: 64px 48px; flex-direction: column; align-items: center;">
       <div id="roulette-container" style="width: 450px; min-height: 650px; display: flex; justify-content: center; align-items: flex-start;">
         ${gameBlocksHtml}
