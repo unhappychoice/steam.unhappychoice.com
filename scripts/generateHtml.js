@@ -163,7 +163,7 @@ const buildHtml = (games) => {
           </span>
           <span style="display: inline-block; width: 60px; margin-right: 16px;">${Math.round(playtime_forever / 60 * 10) / 10}h</span>
           <span style="display: inline-block; width: 60px; margin-right: 16px;">${Math.round((playtime_2weeks ?? 0) / 60 * 10) / 10}h</span>
-          <span style="display: inline-flex; flex-direction: column; align-items: flex-end; width: 72px; margin-right: 16px;">
+          <span style="display: inline-flex; flex-direction: column; align-items: flex-end; width: 96px; margin-right: 16px; white-space: nowrap;">
             <span>${achievements?.length ? `${achievements.filter(({ achieved }) => achieved).length} / ${achievements.length}` : ''}</span>
             ${dlcProgress.total ? `<span style="${dlcLineStyle}">${dlcProgress.achievedCount} / ${dlcProgress.total}</span>` : ''}
           </span>
@@ -238,7 +238,7 @@ const buildAchievementSetHtml = ({ name, isDlc, achievements, achievedCount }) =
             <span style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" title="${name}">${name}</span>
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
-          <span style="display: inline-block; width: 72px; margin-right: 16px; text-align: right;">${achievedCount} / ${achievements.length}</span>
+          <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">${achievedCount} / ${achievements.length}</span>
           <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">${buildCompletionHtml(achievedCount, achievements.length)}</span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
