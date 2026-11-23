@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
+      TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
+      TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v3
