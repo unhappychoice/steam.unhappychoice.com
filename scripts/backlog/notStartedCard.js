@@ -5,7 +5,7 @@ const buildNotStartedCardHtml = ({ game, achievements, rarestPercent, timeToBeat
           <p style="margin: 12px 0; font-size: 15px; line-height: 1.7;">${game.store.shortDescription}</p>
           ${buildDifficultyHtml(achievements.length, rarestPercent)}
           ${buildTimeToBeatHtml(timeToBeat)}
-          <div style="display: flex; gap: 8px; margin-top: 14px;">${game.store.screenshots.map(buildScreenshotHtml).join('')}</div>`);
+          <div style="display: flex; gap: 8px; margin-top: 14px;">${game.store.screenshots.map(buildScreenshotHtml).join('')}</div>`, timeToBeat);
 
 const buildTagHtml = (tag) =>
   `<span style="display: inline-block; margin: 0 6px 4px 0; padding: 2px 10px; border-radius: 12px; background: #262626; font-size: 12px;">${tag}</span>`;
