@@ -4,6 +4,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>ゲーム一覧</title>
     <style>
+      html { scrollbar-gutter: stable; background: #121212; color-scheme: dark; }
+      @view-transition { navigation: auto; }
+      ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .25s; }
+      ::view-transition-group(nav-indicator) { animation-duration: .35s; animation-timing-function: cubic-bezier(.2, .8, .2, 1); }
+      @media (prefers-reduced-motion: reduce) {
+        ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+      }
+</style>
+    <style>
         body {
           margin: 0;
           background: #121212;
@@ -32,8 +41,9 @@
   </head>
   <body>
     
-    <style>html { scrollbar-gutter: stable; }</style>
-    <header style="border-bottom: 1px solid #232323; background: #161616;">
+    <script>const withTransition = (update) => document.startViewTransition ? document.startViewTransition(update) : update();
+</script>
+    <header style="border-bottom: 1px solid #232323; background: #161616; view-transition-name: site-header;">
       <div style="display: flex; align-items: center; margin: 0 auto; padding: 0 32px; max-width: 1400px; height: 56px;">
         <a href="index.html" style="display: inline-flex; align-items: center; gap: 10px; color: #e0e0e0; font-size: 17px; text-decoration: none;">
           
@@ -45,9 +55,18 @@
         </a>
         <nav style="display: flex; gap: 8px; margin-left: auto; height: 100%;">
           
-          <a href="index.html" style="display: inline-flex; align-items: center; padding: 0 14px; border-bottom: 2px solid #d4af37; color: #e0e0e0; font-size: 14px; text-decoration: none;">ゲーム一覧</a>
-          <a href="backlog.html" style="display: inline-flex; align-items: center; padding: 0 14px; border-bottom: 2px solid transparent; color: #8f8f8f; font-size: 14px; text-decoration: none;">次に遊ぶゲーム</a>
-          <a href="roulette.html" style="display: inline-flex; align-items: center; padding: 0 14px; border-bottom: 2px solid transparent; color: #8f8f8f; font-size: 14px; text-decoration: none;">今日の一本</a>
+          <a href="index.html" style="position: relative; display: inline-flex; align-items: center; padding: 0 14px; color: #e0e0e0; font-size: 14px; text-decoration: none;">
+            ゲーム一覧
+            <span style="position: absolute; right: 0; bottom: 0; left: 0; height: 2px; background: #d4af37; view-transition-name: nav-indicator;"></span>
+          </a>
+          <a href="backlog.html" style="position: relative; display: inline-flex; align-items: center; padding: 0 14px; color: #8f8f8f; font-size: 14px; text-decoration: none;">
+            次に遊ぶゲーム
+            
+          </a>
+          <a href="roulette.html" style="position: relative; display: inline-flex; align-items: center; padding: 0 14px; color: #8f8f8f; font-size: 14px; text-decoration: none;">
+            今日の一本
+            
+          </a>
         </nav>
       </div>
     </header>
@@ -22076,9 +22095,9 @@ const toggleDetails = ($row, event) => {
   $row.querySelector('[data-chevron]').style.transform = isOpening ? 'rotate(180deg)' : '';
 };
 
-document.querySelectorAll('[data-toggle]').forEach($row => $row.addEventListener('click', event => toggleDetails($row, event)));
-$sortButtons.forEach(button => button.addEventListener('click', () => changeSort(button)));
-[$search, ...$statusCheckboxes, $hideUnplayed, $dlcIncomplete].forEach($control => $control.addEventListener('input', render));
+document.querySelectorAll('[data-toggle]').forEach($row => $row.addEventListener('click', event => withTransition(() => toggleDetails($row, event))));
+$sortButtons.forEach(button => button.addEventListener('click', () => withTransition(() => changeSort(button))));
+[$search, ...$statusCheckboxes, $hideUnplayed, $dlcIncomplete].forEach($control => $control.addEventListener('input', () => withTransition(render)));
 render();
 
     </script>
