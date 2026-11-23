@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { steamId } = require('./config');
-const { buildLinksHtml, linkChipStyle } = require('./gameLinks');
+const { buildLinksHtml } = require('./gameLinks');
 const { buildDataAttributes, buildControlsHtml, gameListScript } = require('./gameListControls');
 const { buildSummaryHtml } = require('./summary');
 const { icon, colors } = require('./icons');
@@ -210,7 +210,6 @@ const buildHtml = (games) => {
           color: #afafbf;
           text-decoration: none;
         }
-${linkChipStyle}
     </style>
   </head>
   <body>

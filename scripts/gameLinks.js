@@ -1,7 +1,7 @@
 const { steamId } = require('./config');
 
 const buildLinksHtml = ({ appid, name }) => `
-        <div style="margin: 8px 0 8px 102px; font-size: 12px;">
+        <div style="margin: 8px 0 8px 102px; font-size: 13px;">
           ${linkGroups(appid, name).map(buildLinkGroupHtml).join('')}
         </div>`;
 
@@ -36,29 +36,11 @@ const buildLinkGroupHtml = ([label, links]) => `
           <div style="display: flex; align-items: baseline; margin-bottom: 2px;">
             <span style="flex-shrink: 0; width: 56px; color: #6f6f6f;">${label}</span>
             <span style="display: flex; flex-wrap: wrap;">
-              ${links.map(([text, url]) => `<a class="link-chip" href="${url}" target="_blank" rel="noopener noreferrer">${text}</a>`).join('')}
+              ${links.map(([text, url]) => `<a href="${url}" target="_blank" rel="noopener noreferrer" style="margin: 0 16px 6px 0;">${text}</a>`).join('')}
             </span>
           </div>`;
-
-const linkChipStyle = `
-        a.link-chip, a.link-chip:visited {
-          margin: 0 6px 6px 0;
-          padding: 3px 10px;
-          border: 1px solid #2c2c2c;
-          border-radius: 12px;
-          background: #1b1b1b;
-          color: #a2a2a2;
-          text-decoration: none;
-        }
-
-        a.link-chip:hover {
-          border-color: #444;
-          background: #262626;
-          color: #e0e0e0;
-        }
-`;
 
 const googleSearch = (query) => `https://www.google.com/search?q=${encodeURIComponent(query)}`;
 const youtubeSearch = (query) => `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
 
-module.exports = { buildLinksHtml, linkChipStyle };
+module.exports = { buildLinksHtml };
