@@ -4,7 +4,7 @@ const { icon, colors } = require('./icons');
 
 const buildHeaderHtml = (activePage) => `
     <script>${fs.readFileSync(path.join(__dirname, 'client', 'transition.js'), 'utf8')}</script>
-    <header style="border-bottom: 1px solid #232323; background: #161616; view-transition-name: site-header;">
+    <header style="position: sticky; top: 0; z-index: 5; border-bottom: 1px solid #232323; background: #161616; view-transition-name: site-header;">
       <div style="display: flex; align-items: center; margin: 0 auto; padding: 0 32px; max-width: 1400px; height: 56px;">
         <a href="index.html" style="display: inline-flex; align-items: center; gap: 10px; color: #e0e0e0; font-size: 17px; text-decoration: none;">
           ${icon('trophy', colors.gold, 20)}
