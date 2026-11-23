@@ -2,13 +2,14 @@ const $lightbox = document.getElementById('lightbox');
 const $stage = document.getElementById('lightbox-stage');
 const lightboxState = { gallery: [], index: 0, hls: null };
 const mediaStyle = 'max-width: 92vw; max-height: 88vh; border-radius: 6px; background: #000;';
+const videoStyle = `${mediaStyle} width: min(92vw, calc(88vh * 16 / 9)); aspect-ratio: 16 / 9;`;
 
 const galleryItems = ($card) => [...$card.querySelectorAll('[data-full]')];
 
 const createImage = (src) => Object.assign(document.createElement('img'), { src, style: mediaStyle });
 
 const createVideo = (src) => {
-  const $video = Object.assign(document.createElement('video'), { controls: true, autoplay: true, style: mediaStyle });
+  const $video = Object.assign(document.createElement('video'), { controls: true, autoplay: true, style: videoStyle });
   if ($video.canPlayType('application/vnd.apple.mpegurl')) $video.src = src;
   else if (window.Hls?.isSupported()) {
     lightboxState.hls = new Hls();
