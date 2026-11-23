@@ -3,6 +3,7 @@ const { steamId } = require('./config');
 const { buildLinksHtml } = require('./gameLinks');
 const { attachStoreData } = require('./store');
 const { buildBacklogHtml } = require('./backlog');
+const { fetchTimeToBeat } = require('./timeToBeat');
 const { buildDataAttributes, buildControlsHtml, gameListScript } = require('./gameListControls');
 const { buildSummaryHtml } = require('./summary');
 const { icon, colors } = require('./icons');
@@ -356,8 +357,9 @@ fetchGames()
   // .then(games => games.slice(0, 10).map(fetchAchievements))
   .then(games => games.map(fetchAchievements))
   .then(promises => Promise.all(promises))
-  .then(games => {
+  .then(games => fetchTimeToBeat(games.map(({ game }) => game.appid)).then(timesByAppid => [games, timesByAppid]))
+  .then(([games, timesByAppid]) => {
     fs.writeFileSync('./index.html', buildHtml(games))
     fs.writeFileSync('./roulette.html', buildRouletteHtml(games))
-    fs.writeFileSync('./backlog.html', buildBacklogHtml(games))
+    fs.writeFileSync('./backlog.html', buildBacklogHtml(games, timesByAppid))
   });
