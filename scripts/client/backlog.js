@@ -22,6 +22,6 @@ const toggleMore = ($button) => {
   $button.textContent = isOpening ? '閉じる' : $button.dataset.label;
 };
 
-document.querySelectorAll('[data-more-toggle]').forEach($button => $button.addEventListener('click', () => toggleMore($button)));
-$tabButtons.forEach($button => $button.addEventListener('click', () => showTab($button.dataset.tabTarget)));
+document.querySelectorAll('[data-more-toggle]').forEach($button => $button.addEventListener('click', () => withTransition(() => toggleMore($button))));
+$tabButtons.forEach($button => $button.addEventListener('click', () => withTransition(() => showTab($button.dataset.tabTarget))));
 document.getElementById('pick-button').addEventListener('click', pickCard);

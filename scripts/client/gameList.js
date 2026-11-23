@@ -57,7 +57,7 @@ const toggleDetails = ($row, event) => {
   $row.querySelector('[data-chevron]').style.transform = isOpening ? 'rotate(180deg)' : '';
 };
 
-document.querySelectorAll('[data-toggle]').forEach($row => $row.addEventListener('click', event => toggleDetails($row, event)));
-$sortButtons.forEach(button => button.addEventListener('click', () => changeSort(button)));
-[$search, ...$statusCheckboxes, $hideUnplayed, $dlcIncomplete].forEach($control => $control.addEventListener('input', render));
+document.querySelectorAll('[data-toggle]').forEach($row => $row.addEventListener('click', event => withTransition(() => toggleDetails($row, event))));
+$sortButtons.forEach(button => button.addEventListener('click', () => withTransition(() => changeSort(button))));
+[$search, ...$statusCheckboxes, $hideUnplayed, $dlcIncomplete].forEach($control => $control.addEventListener('input', () => withTransition(render)));
 render();

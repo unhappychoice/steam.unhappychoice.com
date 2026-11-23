@@ -3,7 +3,7 @@ const path = require('path');
 const { colors } = require('../icons');
 const { buildNotStartedCardHtml } = require('./notStartedCard');
 const { buildInProgressCardHtml } = require('./inProgressCard');
-const { buildHeaderHtml } = require('../header');
+const { buildHeaderHtml, buildSharedHeadHtml } = require('../header');
 const { rarestPercent } = require('../difficulty');
 
 const buildBacklogHtml = (games, timesByAppid) => {
@@ -23,6 +23,7 @@ const buildBacklogHtml = (games, timesByAppid) => {
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>次に遊ぶゲーム</title>
+    ${buildSharedHeadHtml()}
     <style>
       body { margin: 0; background: #121212; color: #a2a2a2; font-size: 14px; }
       a:link, a:visited { color: #aaaabb; text-decoration: none; }

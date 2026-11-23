@@ -4,7 +4,7 @@ const { buildLinksHtml } = require('./gameLinks');
 const { attachStoreData } = require('./store');
 const { buildBacklogHtml } = require('./backlog');
 const { fetchTimeToBeat } = require('./timeToBeat');
-const { buildHeaderHtml } = require('./header');
+const { buildHeaderHtml, buildSharedHeadHtml } = require('./header');
 const { buildRouletteHtml } = require('./roulette');
 const { buildDataAttributes, buildControlsHtml, gameListScript } = require('./gameListControls');
 const { buildSummaryHtml } = require('./summary');
@@ -153,6 +153,7 @@ const buildHtml = (games) => {
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>ゲーム一覧</title>
+    ${buildSharedHeadHtml()}
     <style>
         body {
           margin: 0;

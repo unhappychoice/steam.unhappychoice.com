@@ -25,7 +25,9 @@ const playTrailer = (url) => {
   hls.attachMedia($video);
 };
 
-const showResult = (candidate) => {
+const showResult = (candidate) => withTransition(() => renderResult(candidate));
+
+const renderResult = (candidate) => {
   const isWeekly = weeklyAppid() === candidate.appid;
   $result.innerHTML = resultHtml(candidate, { time: rouletteState.time, isWeekly, rerolls: remainingRerolls() });
   showScreen($result);
@@ -44,7 +46,7 @@ const draw = () => {
   const candidate = pickCandidate(rouletteState);
   if (!candidate) return;
   rouletteState.shownAppids.push(candidate.appid);
-  showScreen($shuffle);
+  withTransition(() => showScreen($shuffle));
   shuffleImages(() => showResult(candidate));
 };
 
@@ -56,7 +58,7 @@ const renderWeeklyBanner = () => {
 const actions = {
   reroll: () => { useReroll(); draw(); },
   weekly: () => { setWeeklyAppid(rouletteState.current.appid); renderWeeklyBanner(); showResult(rouletteState.current); },
-  back: () => showScreen($questions),
+  back: () => withTransition(() => showScreen($questions)),
   'show-weekly': () => showResult(findCandidate(weeklyAppid()))
 };
 
