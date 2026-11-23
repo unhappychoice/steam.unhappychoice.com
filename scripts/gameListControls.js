@@ -28,9 +28,10 @@ const buildControlsHtml = () => `
     <div style="position: sticky; top: 0; z-index: 1; padding: 16px 32px 8px; background: #121212;">
       <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 12px; font-size: 14px;">
         <input id="filter-search" type="search" placeholder="Search games" style="${inputStyle} width: 240px;" />
-        <select id="filter-status" style="${inputStyle}">
-          ${statusOptions.map(([value, label]) => `<option value="${value}">${label}</option>`).join('')}
-        </select>
+        <span id="filter-status" style="display: inline-flex; align-items: center; gap: 12px; padding: 5px 12px; border-radius: 4px; background: #1b1b1b;">
+          <span style="color: #6f6f6f;">達成状況</span>
+          ${statusOptions.map(([value, label]) => `<label><input type="checkbox" value="${value}" /> ${label}</label>`).join('')}
+        </span>
         <label><input id="filter-hide-unplayed" type="checkbox" /> 未プレイを隠す</label>
         <label><input id="filter-dlc-incomplete" type="checkbox" /> DLC 未完了あり</label>
         <span id="visible-count" style="margin-left: auto;"></span>
@@ -51,7 +52,6 @@ const sortButtonHtml = (key, label, defaultDirection, style) => `
         <button type="button" data-sort-key="${key}" data-label="${label}" data-default-direction="${defaultDirection}" style="${buttonStyle} ${style}">${label}</button>`;
 
 const statusOptions = [
-  ['all', 'すべて'],
   ['complete', 'コンプリート済み'],
   ['in-progress', '進行中'],
   ['not-started', '未着手'],

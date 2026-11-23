@@ -1,7 +1,7 @@
 const $list = document.getElementById('games');
 const $items = [...$list.children];
 const $search = document.getElementById('filter-search');
-const $status = document.getElementById('filter-status');
+const $statusCheckboxes = [...document.querySelectorAll('#filter-status input')];
 const $hideUnplayed = document.getElementById('filter-hide-unplayed');
 const $dlcIncomplete = document.getElementById('filter-dlc-incomplete');
 const $count = document.getElementById('visible-count');
@@ -10,9 +10,15 @@ const sortState = { key: 'index', direction: 1 };
 
 const matches = ({ dataset }) =>
   dataset.name.includes($search.value.trim().toLowerCase()) &&
-  ($status.value === 'all' || dataset.status === $status.value) &&
+  matchesStatus(dataset.status) &&
   (!$hideUnplayed.checked || +dataset.playtime > 0) &&
   (!$dlcIncomplete.checked || dataset.dlcIncomplete === 'true');
+
+const matchesStatus = (status) => {
+  const selected = $statusCheckboxes.filter(({ checked }) => checked).map(({ value }) => value);
+
+  return selected.length === 0 || selected.includes(status);
+};
 
 const sortValue = (item) => item.dataset[sortState.key] === '' ? null : +item.dataset[sortState.key];
 
@@ -53,5 +59,5 @@ const toggleDetails = ($row, event) => {
 
 document.querySelectorAll('[data-toggle]').forEach($row => $row.addEventListener('click', event => toggleDetails($row, event)));
 $sortButtons.forEach(button => button.addEventListener('click', () => changeSort(button)));
-[$search, $status, $hideUnplayed, $dlcIncomplete].forEach($control => $control.addEventListener('input', render));
+[$search, ...$statusCheckboxes, $hideUnplayed, $dlcIncomplete].forEach($control => $control.addEventListener('input', render));
 render();
