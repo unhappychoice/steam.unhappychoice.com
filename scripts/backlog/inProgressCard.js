@@ -13,7 +13,7 @@ const buildInProgressCardHtml = ({ game, achievements, timeToBeat }) => {
           <div style="margin-top: 14px;">
             ${remaining.slice(0, 5).map(achievement => buildRemainingAchievementHtml(game.name, achievement)).join('')}
             ${remaining.length > 5 ? `<div style="margin-top: 6px; font-size: 12px; color: #6f6f6f;">ほか ${remaining.length - 5} 個</div>` : ''}
-          </div>`);
+          </div>`, timeToBeat);
 };
 
 const buildProgressHtml = (achievedCount, total, rarestRemaining) => `

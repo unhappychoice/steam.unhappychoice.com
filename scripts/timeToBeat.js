@@ -5,8 +5,8 @@ const fetchTimeToBeat = (appids) => {
   return fetchAccessToken(clientId, clientSecret)
     .then(token => igdbClient(clientId, token))
     .then(query => fetchIgdbGameIds(query, appids)
-      .then(gameIdByAppid => fetchTimes(query, Object.values(gameIdByAppid))
-        .then(timesByGameId => mapTimesToAppids(gameIdByAppid, timesByGameId))))
+      .then(gameIdByAppid => Promise.all([fetchTimes(query, Object.values(gameIdByAppid)), fetchUrls(query, Object.values(gameIdByAppid))])
+        .then(([timesByGameId, urlsByGameId]) => mapToAppids(gameIdByAppid, timesByGameId, urlsByGameId))))
     .catch(error => {
       console.warn(`Failed to fetch time to beat from IGDB: ${error.message}`);
       return {};
@@ -35,10 +35,14 @@ const fetchTimes = (query, gameIds) =>
     query('game_time_to_beats', `fields game_id, normally, completely, count; where game_id = (${ids.join(',')}); limit 500;`)))
     .then(results => Object.fromEntries(results.flat().map(time => [time.game_id, time])));
 
-const mapTimesToAppids = (gameIdByAppid, timesByGameId) =>
+const fetchUrls = (query, gameIds) =>
+  Promise.all(chunk(gameIds, 500).map(ids =>
+    query('games', `fields url; where id = (${ids.join(',')}); limit 500;`)))
+    .then(results => Object.fromEntries(results.flat().map(({ id, url }) => [id, url])));
+
+const mapToAppids = (gameIdByAppid, timesByGameId, urlsByGameId) =>
   Object.fromEntries(Object.entries(gameIdByAppid)
-    .filter(([, gameId]) => timesByGameId[gameId])
-    .map(([appid, gameId]) => [appid, toHours(timesByGameId[gameId])]));
+    .map(([appid, gameId]) => [appid, { url: urlsByGameId[gameId], ...toHours(timesByGameId[gameId] ?? {}) }]));
 
 const toHours = ({ normally, completely, count }) => ({
   normally: normally && Math.round(normally / 3600),

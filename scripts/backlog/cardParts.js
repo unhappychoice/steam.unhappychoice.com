@@ -1,12 +1,12 @@
 const { icon } = require('../icons');
 
-const buildCardHtml = (game, bodyHtml) => `
+const buildCardHtml = (game, bodyHtml, timeToBeat) => `
       <div class="backlog-card" style="display: flex; gap: 28px; margin-bottom: 20px; padding: 24px; border-radius: 10px; background: #1a1a1a;">
         ${buildMediaHtml(game, game.store)}
         <div style="flex-grow: 1; min-width: 0;">
           ${buildTitleHtml(game.name, game.store.review)}
           ${bodyHtml}
-          ${buildLinksHtml(game.appid, game.name)}
+          ${buildLinksHtml(game.appid, game.name, timeToBeat?.url)}
         </div>
       </div>`;
 
@@ -23,11 +23,12 @@ const buildTitleHtml = (name, review) => `
             ${review ? `<span style="font-size: 13px; color: #6f6f6f;">${review.review_score_label} (${review.percent_positive} %)</span>` : ''}
           </div>`;
 
-const buildLinksHtml = (appid, name) => `
+const buildLinksHtml = (appid, name, igdbUrl) => `
           <div style="display: flex; gap: 20px; margin-top: 14px; font-size: 15px;">
             <a href="steam://rungameid/${appid}">▶ 起動</a>
             <a href="https://store.steampowered.com/app/${appid}" target="_blank" rel="noopener noreferrer">ストア</a>
             <a href="https://howlongtobeat.com/?q=${encodeURIComponent(name)}" target="_blank" rel="noopener noreferrer">HowLongToBeat</a>
+            ${igdbUrl ? `<a href="${igdbUrl}" target="_blank" rel="noopener noreferrer">IGDB</a>` : ''}
             <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(name)}" target="_blank" rel="noopener noreferrer">YouTube</a>
           </div>`;
 
