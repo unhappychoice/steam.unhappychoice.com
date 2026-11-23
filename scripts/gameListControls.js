@@ -42,7 +42,7 @@ const buildControlsHtml = () => `
         ${sortButtonHtml('playtime2w', '2週間', -1, 'width: 60px; text-align: left;')}
         ${sortButtonHtml('remaining', '残り実績', 1, 'width: 72px; text-align: right;')}
         ${sortButtonHtml('percent', '達成率', -1, 'width: 80px; text-align: left;')}
-        <span style="display: inline-block; width: 280px;"></span>
+        <span style="display: inline-block; width: 24px;"></span>
       </div>
     </div>
 `;

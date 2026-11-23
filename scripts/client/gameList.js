@@ -43,15 +43,15 @@ const changeSort = ({ dataset: { sortKey, defaultDirection } }) => {
   render();
 };
 
-const toggleSets = ($row, event) => {
+const toggleDetails = ($row, event) => {
   if (event.target.closest('a')) return;
-  const $sets = $row.closest('li').querySelector('[data-sets]');
-  const isOpening = $sets.style.display === 'none';
-  $sets.style.display = isOpening ? '' : 'none';
+  const $details = $row.closest('li').querySelector('[data-details]');
+  const isOpening = $details.style.display === 'none';
+  $details.style.display = isOpening ? '' : 'none';
   $row.querySelector('[data-chevron]').style.transform = isOpening ? 'rotate(180deg)' : '';
 };
 
-document.querySelectorAll('[data-set-toggle]').forEach($row => $row.addEventListener('click', event => toggleSets($row, event)));
+document.querySelectorAll('[data-toggle]').forEach($row => $row.addEventListener('click', event => toggleDetails($row, event)));
 $sortButtons.forEach(button => button.addEventListener('click', () => changeSort(button)));
 [$search, $status, $hideUnplayed, $dlcIncomplete].forEach($control => $control.addEventListener('input', render));
 render();
