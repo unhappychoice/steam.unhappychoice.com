@@ -26,7 +26,7 @@ const compare = (a, b) => {
 const renderSortButtons = () => $sortButtons.forEach(button => {
   const isActive = button.dataset.sortKey === sortState.key;
   button.textContent = `${button.dataset.label}${isActive ? (sortState.direction > 0 ? ' ▲' : ' ▼') : ''}`;
-  button.style.color = isActive ? '#e0e0e0' : '';
+  button.style.color = isActive ? '#e0e0e0' : '#8f8f8f';
 });
 
 const render = () => {
