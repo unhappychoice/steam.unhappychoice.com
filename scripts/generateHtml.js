@@ -233,10 +233,10 @@ const buildCompletionHtml = (achievedCount, total, iconSize = 14) => {
 const completionColor = (ratio) => completionColors.find(([threshold]) => ratio >= threshold)[1];
 
 const completionColors = [
-  [0.75, '#6fcf97'],
-  [0.5, '#f2c94c'],
-  [0.25, '#f2994a'],
-  [Number.MIN_VALUE, '#eb5757'],
+  [0.75, '#8ab89b'],
+  [0.5, '#c7bb82'],
+  [0.25, '#c9a27c'],
+  [Number.MIN_VALUE, '#c48686'],
   [0, '#5f5f5f']
 ];
 
