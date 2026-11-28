@@ -43,7 +43,7 @@
     
     <script>const withTransition = (update) => document.startViewTransition ? document.startViewTransition(update) : update();
 </script>
-    <header style="border-bottom: 1px solid #232323; background: #161616; view-transition-name: site-header;">
+    <header style="position: sticky; top: 0; z-index: 5; border-bottom: 1px solid #232323; background: #161616; view-transition-name: site-header;">
       <div style="display: flex; align-items: center; margin: 0 auto; padding: 0 32px; max-width: 1400px; height: 56px;">
         <a href="index.html" style="display: inline-flex; align-items: center; gap: 10px; color: #e0e0e0; font-size: 17px; text-decoration: none;">
           
@@ -234,7 +234,7 @@
     </div>
 
       
-    <div style="position: sticky; top: 0; z-index: 1; padding: 16px 32px 8px; background: #121212;">
+    <div style="position: sticky; top: 57px; z-index: 1; padding: 16px 32px 8px; background: #121212;">
       <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 12px; font-size: 14px;">
         <input id="filter-search" type="search" placeholder="Search games" style="padding: 6px 10px; border: 0; border-radius: 4px; background: #232323; color: #a2a2a2; font-size: 14px; width: 240px;" />
         <span id="filter-status" style="display: inline-flex; align-items: center; gap: 12px; padding: 5px 12px; border-radius: 4px; background: #1b1b1b;">
@@ -3409,7 +3409,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -3513,7 +3513,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -3564,7 +3564,7 @@
             <span style="font-size: 12px; line-height: 16px; color: #7a7a7a;">0 / 21</span>
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">17 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c48686;">17 %</span></span>
             
             <span style="display: inline-flex; align-items: center; font-size: 12px; line-height: 16px; color: #7a7a7a;">
               
@@ -3572,7 +3572,7 @@
     <path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/>
   </svg>
 
-              0 %
+              <span style="color: #5f5f5f;">0 %</span>
             </span>
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -3616,7 +3616,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 9</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -3631,7 +3631,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 12</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -3703,7 +3703,7 @@
             <span style="font-size: 12px; line-height: 16px; color: #7a7a7a;">30 / 100</span>
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">60 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c7bb82;">60 %</span></span>
             
             <span style="display: inline-flex; align-items: center; font-size: 12px; line-height: 16px; color: #7a7a7a;">
               
@@ -3711,7 +3711,7 @@
     <path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/>
   </svg>
 
-              30 %
+              <span style="color: #c9a27c;">30 %</span>
             </span>
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -3751,7 +3751,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 2</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -3762,7 +3762,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">3 / 10</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">30 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c9a27c;">30 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -3773,7 +3773,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 6</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -3788,7 +3788,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">1 / 5</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">20 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c48686;">20 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -3803,7 +3803,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">4 / 5</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">80 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #8ab89b;">80 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -3818,7 +3818,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">5 / 7</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">71 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c7bb82;">71 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -3833,7 +3833,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">2 / 5</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">40 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c9a27c;">40 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -3848,7 +3848,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">6 / 8</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">75 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #8ab89b;">75 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -3863,7 +3863,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 2</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -3878,7 +3878,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">2 / 5</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">40 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c9a27c;">40 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -3893,7 +3893,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">2 / 4</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">50 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c7bb82;">50 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -3908,7 +3908,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">4 / 7</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">57 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c7bb82;">57 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -3923,7 +3923,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">1 / 5</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">20 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c48686;">20 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -3938,7 +3938,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">1 / 5</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">20 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c48686;">20 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -3953,7 +3953,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 5</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -3968,7 +3968,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">2 / 4</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">50 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c7bb82;">50 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -3983,7 +3983,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 5</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -3998,7 +3998,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 4</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -4013,7 +4013,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 4</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -4028,7 +4028,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 4</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -4043,7 +4043,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 4</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -4058,7 +4058,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 4</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -4073,7 +4073,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 4</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -4088,7 +4088,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 4</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -4213,7 +4213,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">12 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c48686;">12 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -4264,7 +4264,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -4304,7 +4304,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 9</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -4315,7 +4315,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 10</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -4326,7 +4326,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 8</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -4337,7 +4337,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 13</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -4371,7 +4371,7 @@
     <path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/>
   </svg>
 
-              0 %
+              <span style="color: #5f5f5f;">0 %</span>
             </span>
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -4415,7 +4415,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 19</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -4490,7 +4490,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -4594,7 +4594,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">60 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c7bb82;">60 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -4752,7 +4752,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">60 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c7bb82;">60 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -4906,7 +4906,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -4956,7 +4956,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -5006,7 +5006,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -5110,7 +5110,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -5160,7 +5160,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -5210,7 +5210,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -5476,7 +5476,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -5580,7 +5580,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">20 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c48686;">20 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -5630,7 +5630,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -5680,7 +5680,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">26 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c9a27c;">26 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -5784,7 +5784,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">8 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c48686;">8 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -5834,7 +5834,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">38 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c9a27c;">38 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -6042,7 +6042,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">15 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c48686;">15 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -6092,7 +6092,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">81 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #8ab89b;">81 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -6304,7 +6304,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">18 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c48686;">18 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -6354,7 +6354,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">12 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c48686;">12 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -6562,7 +6562,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -6666,7 +6666,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">17 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c48686;">17 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -7103,7 +7103,7 @@
     <path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/>
   </svg>
 
-              0 %
+              <span style="color: #5f5f5f;">0 %</span>
             </span>
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -7147,7 +7147,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 13</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7277,7 +7277,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">71 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c7bb82;">71 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -7332,7 +7332,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">6 / 7</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">86 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #8ab89b;">86 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7343,7 +7343,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">2 / 3</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">67 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c7bb82;">67 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7369,7 +7369,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">6 / 8</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">75 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #8ab89b;">75 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7410,7 +7410,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">8 / 10</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">80 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #8ab89b;">80 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7421,7 +7421,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">6 / 8</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">75 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #8ab89b;">75 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7477,7 +7477,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">7 / 8</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">88 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #8ab89b;">88 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7503,7 +7503,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">6 / 10</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">60 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c7bb82;">60 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7529,7 +7529,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">5 / 6</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">83 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #8ab89b;">83 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7540,7 +7540,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">5 / 7</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">71 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c7bb82;">71 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7551,7 +7551,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">7 / 8</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">88 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #8ab89b;">88 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7562,7 +7562,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">9 / 10</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">90 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #8ab89b;">90 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7588,7 +7588,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">4 / 5</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">80 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #8ab89b;">80 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7599,7 +7599,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">6 / 7</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">86 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #8ab89b;">86 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7625,7 +7625,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">2 / 7</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">29 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c9a27c;">29 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7636,7 +7636,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">2 / 3</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">67 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c7bb82;">67 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7647,7 +7647,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 7</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7658,7 +7658,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 5</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7669,7 +7669,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 7</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7680,7 +7680,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 6</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7691,7 +7691,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 7</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7702,7 +7702,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 5</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7713,7 +7713,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 7</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7724,7 +7724,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 6</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -7799,7 +7799,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -8008,7 +8008,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">40 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c9a27c;">40 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -8166,7 +8166,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">77 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #8ab89b;">77 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -8378,7 +8378,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">68 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c7bb82;">68 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -8428,7 +8428,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">85 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #8ab89b;">85 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -8478,7 +8478,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">71 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c7bb82;">71 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -8632,7 +8632,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">51 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c7bb82;">51 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -8790,7 +8790,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -8895,7 +8895,7 @@
             <span style="font-size: 12px; line-height: 16px; color: #7a7a7a;">36 / 72</span>
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">76 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #8ab89b;">76 %</span></span>
             
             <span style="display: inline-flex; align-items: center; font-size: 12px; line-height: 16px; color: #7a7a7a;">
               
@@ -8903,7 +8903,7 @@
     <path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/>
   </svg>
 
-              50 %
+              <span style="color: #c7bb82;">50 %</span>
             </span>
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -8943,7 +8943,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 3</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -8954,7 +8954,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">4 / 10</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">40 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c9a27c;">40 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -8969,7 +8969,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">6 / 7</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">86 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #8ab89b;">86 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -8984,7 +8984,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">3 / 6</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">50 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c7bb82;">50 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -8999,7 +8999,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">4 / 5</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">80 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #8ab89b;">80 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -9033,7 +9033,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">5 / 8</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">63 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c7bb82;">63 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -9048,7 +9048,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">1 / 6</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">17 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c48686;">17 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -9063,7 +9063,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">4 / 5</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">80 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #8ab89b;">80 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -9078,7 +9078,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">2 / 6</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">33 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c9a27c;">33 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -9093,7 +9093,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">2 / 5</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">40 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c9a27c;">40 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -9108,7 +9108,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">2 / 5</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">40 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c9a27c;">40 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -9123,7 +9123,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 4</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -9138,7 +9138,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 4</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -9153,7 +9153,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 4</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -9174,7 +9174,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">93 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #8ab89b;">93 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -9981,7 +9981,7 @@
             <span style="font-size: 12px; line-height: 16px; color: #7a7a7a;">0 / 29</span>
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">83 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #8ab89b;">83 %</span></span>
             
             <span style="display: inline-flex; align-items: center; font-size: 12px; line-height: 16px; color: #7a7a7a;">
               
@@ -9989,7 +9989,7 @@
     <path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/>
   </svg>
 
-              0 %
+              <span style="color: #5f5f5f;">0 %</span>
             </span>
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -10033,7 +10033,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 29</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -10324,7 +10324,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -10374,7 +10374,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -10424,7 +10424,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -10474,7 +10474,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -10578,7 +10578,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -10641,7 +10641,7 @@
     <path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/>
   </svg>
 
-              0 %
+              <span style="color: #5f5f5f;">0 %</span>
             </span>
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -10700,7 +10700,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 2</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -10772,7 +10772,7 @@
             <span style="font-size: 12px; line-height: 16px; color: #7a7a7a;">37 / 162</span>
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">54 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c7bb82;">54 %</span></span>
             
             <span style="display: inline-flex; align-items: center; font-size: 12px; line-height: 16px; color: #7a7a7a;">
               
@@ -10780,7 +10780,7 @@
     <path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/>
   </svg>
 
-              23 %
+              <span style="color: #c48686;">23 %</span>
             </span>
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -10824,7 +10824,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 12</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -10839,7 +10839,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">16 / 46</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">35 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c9a27c;">35 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -10854,7 +10854,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">21 / 55</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">38 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c9a27c;">38 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -10869,7 +10869,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 49</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -11106,7 +11106,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -11156,7 +11156,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">51 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c7bb82;">51 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -11260,7 +11260,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -11626,7 +11626,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -11838,7 +11838,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -11888,7 +11888,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">55 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c7bb82;">55 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -11938,7 +11938,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">78 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #8ab89b;">78 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -11988,7 +11988,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">35 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c9a27c;">35 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -12577,7 +12577,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">38 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c9a27c;">38 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -12627,7 +12627,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">67 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c7bb82;">67 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -12677,7 +12677,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -12835,7 +12835,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -12993,7 +12993,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -13205,7 +13205,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">36 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c9a27c;">36 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -13255,7 +13255,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">39 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c9a27c;">39 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -13629,7 +13629,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">56 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c7bb82;">56 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -13841,7 +13841,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">49 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c9a27c;">49 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -13891,7 +13891,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">35 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c9a27c;">35 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -14278,7 +14278,7 @@
     <path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/>
   </svg>
 
-              7 %
+              <span style="color: #c48686;">7 %</span>
             </span>
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -14322,7 +14322,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">1 / 14</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">7 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c48686;">7 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -14397,7 +14397,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">46 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c9a27c;">46 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -14447,7 +14447,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">22 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c48686;">22 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -14497,7 +14497,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">27 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c9a27c;">27 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -14547,7 +14547,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">67 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c7bb82;">67 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -14968,7 +14968,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">37 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c9a27c;">37 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -15008,7 +15008,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">17 / 29</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">59 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c7bb82;">59 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -15019,7 +15019,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">2 / 22</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">9 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #c48686;">9 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -15040,7 +15040,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">48 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c9a27c;">48 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -15376,7 +15376,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">76 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #8ab89b;">76 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -15534,7 +15534,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">63 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c7bb82;">63 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -15638,7 +15638,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">62 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c7bb82;">62 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -15850,7 +15850,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">32 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c9a27c;">32 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -15950,7 +15950,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">83 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #8ab89b;">83 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -16432,7 +16432,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -16860,7 +16860,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">19 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c48686;">19 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -17226,7 +17226,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -17276,7 +17276,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">43 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c9a27c;">43 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -17434,7 +17434,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">94 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #8ab89b;">94 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -17821,7 +17821,7 @@
     <path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/>
   </svg>
 
-              0 %
+              <span style="color: #5f5f5f;">0 %</span>
             </span>
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -17865,7 +17865,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 52</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -18292,7 +18292,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -18450,7 +18450,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -19161,7 +19161,7 @@
     <path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/>
   </svg>
 
-              38 %
+              <span style="color: #c9a27c;">38 %</span>
             </span>
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -19224,7 +19224,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 50</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -19239,7 +19239,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 60</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -19254,7 +19254,7 @@
           </span>
           <span style="display: inline-block; width: 136px; margin-right: 16px;"></span>
           <span style="display: inline-block; width: 96px; margin-right: 16px; white-space: nowrap; text-align: right;">0 / 52</span>
-          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;">0 %</span>
+          <span style="display: inline-flex; align-items: center; width: 80px; margin-right: 16px; white-space: nowrap;"><span style="color: #5f5f5f;">0 %</span></span>
           <span style="display: inline-block; width: 24px;"></span>
         </div>
 
@@ -19329,7 +19329,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -19379,7 +19379,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -19483,7 +19483,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">75 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #8ab89b;">75 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -19641,7 +19641,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">51 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c7bb82;">51 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -20235,7 +20235,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">37 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c9a27c;">37 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -20339,7 +20339,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -20497,7 +20497,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">0 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #5f5f5f;">0 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -20547,7 +20547,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">31 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c9a27c;">31 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
@@ -21839,7 +21839,7 @@
             
           </span>
           <span style="display: inline-flex; flex-direction: column; width: 80px; margin-right: 16px; white-space: nowrap;">
-            <span style="display: inline-flex; align-items: center;">27 %</span>
+            <span style="display: inline-flex; align-items: center;"><span style="color: #c9a27c;">27 %</span></span>
             
           </span>
           <span data-chevron style="display: inline-flex; justify-content: center; width: 24px; transition: transform .2s;">
