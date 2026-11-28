@@ -25,7 +25,7 @@ const completionStatus = (achievedCount, total) => {
 };
 
 const buildControlsHtml = () => `
-    <div style="position: sticky; top: 0; z-index: 1; padding: 16px 32px 8px; background: #121212;">
+    <div style="position: sticky; top: 57px; z-index: 1; padding: 16px 32px 8px; background: #121212;">
       <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 12px; font-size: 14px;">
         <input id="filter-search" type="search" placeholder="Search games" style="${inputStyle} width: 240px;" />
         <span id="filter-status" style="display: inline-flex; align-items: center; gap: 12px; padding: 5px 12px; border-radius: 4px; background: #1b1b1b;">

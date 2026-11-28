@@ -225,10 +225,20 @@ const dlcLineStyle = 'font-size: 12px; line-height: 16px; color: #7a7a7a;';
 
 const buildCompletionHtml = (achievedCount, total, iconSize = 14) => {
   if (!total) return '--';
-  if (achievedCount < total) return `${Math.round(achievedCount / total * 100)} %`;
+  if (achievedCount < total) return `<span style="color: ${completionColor(achievedCount / total)};">${Math.round(achievedCount / total * 100)} %</span>`;
 
   return `<span style="color: ${colors.gold};">100 %</span>${icon('trophy', colors.gold, iconSize, 'margin-left: 4px;')}`;
 };
+
+const completionColor = (ratio) => completionColors.find(([threshold]) => ratio >= threshold)[1];
+
+const completionColors = [
+  [0.75, '#8ab89b'],
+  [0.5, '#c7bb82'],
+  [0.25, '#c9a27c'],
+  [Number.MIN_VALUE, '#c48686'],
+  [0, '#5f5f5f']
+];
 
 
 fetchGames()
